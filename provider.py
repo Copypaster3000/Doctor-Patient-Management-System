@@ -5,4 +5,6 @@
 from parent import parent
 
 class provider(parent):
-    pass
+    #this file organizes all the function of the provider class into a menu to be used for Provider Mode
+    def provider_mode(self):
+        pass

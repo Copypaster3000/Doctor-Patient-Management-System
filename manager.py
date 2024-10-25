@@ -17,10 +17,16 @@ class manager(parent):
             print("1) Generate a doctor billing report")
             print("2) Generate a member billing report")
             print("3) Create a new doctor profile")
+            print("4) Create a new member profile")
+            print("5) Remove a doctor profile")
+            print("6) Remove a member profile")
+            print("7) Change a member's status")
+            print("8) Generate a summary report for all doctors")
             print("9) Quit to go to Main Menu")
             choice = super().get_menu_choice(9)
 
             if (choice == 3): self.add_new_profile("doctor")
+            if (choice == 4): self.add_new_profile("member")
 
         print("\nManager Mode has been exited.")
 
@@ -59,6 +65,9 @@ class manager(parent):
             file.write(f"{city}\n")
             file.write(f"{state}\n")
             file.write(f"{zip}\n")
+
+            if type == "member":
+                file.write("Status: Valid") #if it is a member profile, write into the file their valid status
         
         print(f"\n{type.capitalize()} profile created.\n")
 
