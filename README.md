@@ -1,4 +1,4 @@
-# ChocAn Data Processing System
+# Docotor Patient Management System
 
 ## Project Overview
 This project is a data management system developed for Chocoholics Anonymous (ChocAn) to streamline member services, billing, and reporting. The software provides two main operational modes, **Manager Mode** and **Provider Mode**, aimed at assisting healthcare providers and managers with tasks like scheduling, logging services, and generating billing reports.
