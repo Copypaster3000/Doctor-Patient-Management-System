@@ -6,9 +6,9 @@ This project is a data management system developed for Chocoholics Anonymous (Ch
 ## Purpose and Scope
 The ChocAn system is designed to process data to help manage chocolate addiction services for members of Chocoholics Anonymous. The system supports:
 - Service scheduling and logging for members.
-- Member validation.
-- Billing management.
-- Weekly report generation.
+- Managing doctors and members.
+- Generating doctor and member service reports. 
+- Managing services provided,
 
 > **Note**: This project focuses solely on building the ChocAn data processing software and does not include server communication, financial processing, or hardware development.
 
@@ -47,8 +47,3 @@ The system operates with specific file naming conventions:
 - `12345_name_member_report.txt`: Member's weekly billing report.
 - `services.txt`: Lists all available services with codes and fees.
 
-## Non-functional Requirements
-The ChocAn system is built to ensure:
-- **Performance**: Efficient transaction processing and quick response time.
-- **Reliability**: High availability, with minimal downtime, and robust error handling.
-- **Security**: User authentication for providers, adherence to HIPAA standards, and protection of sensitive data.
