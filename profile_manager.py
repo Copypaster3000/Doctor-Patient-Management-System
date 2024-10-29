@@ -1,35 +1,21 @@
-#manager.py
-#Choc Anon Project
-#This file contains the manager class. This class facilitates manager mode. It is a child of the 'parent' class.
+#profile_manager.py
+#CS314
+#Doctor Patient Management System
+#This file holds the profile manager class. This class is responsible for managing profiles in the data system.
+#Including creating and deleting doctor and manager profiles and changing member's statuses. 
 
 from parent import parent
 
 
-class manager(parent):
+class profile_manager(parent):
+    #this function specifically adds a new doctor profile
+    def add_new_doctor_profile(self):
+        self.add_new_profile("doctor")
+    
 
-    #this file organizes all the functions of the manager class into a menu to be used for manager mode
-    def manager_mode(self):
-        choice = -1 #user's menu choice
-
-        while(choice != 9):
-            print("\nManger Mode")
-            print("Select an option form the menu:")
-            print("1) Generate a doctor billing report")
-            print("2) Generate a member billing report")
-            print("3) Create a new doctor profile")
-            print("4) Create a new member profile")
-            print("5) Remove a doctor profile")
-            print("6) Remove a member profile")
-            print("7) Change a member's status")
-            print("8) Generate a summary report for all doctors")
-            print("9) Quit to go to Main Menu")
-            choice = super().get_menu_choice(9)
-
-            if (choice == 3): self.add_new_profile("doctor")
-            if (choice == 4): self.add_new_profile("member")
-
-        print("\nManager Mode has been exited.")
-
+    #this function specifically adds a new member profile
+    def add_new_member_profile(self):
+        self.add_new_member_profile
 
 
     #this function adds a new profile to the data system, returns True for success or False for not added
@@ -74,4 +60,3 @@ class manager(parent):
         #display file contents, if file not found...
         if not super().display_file_contents(file_name):
             print("Error: file not found in directory after creating doctor profile.")
-

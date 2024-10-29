@@ -1,30 +1,27 @@
 #main.py
-#Choc Anon Project
+#Doctor Patient Management System
+#This is the main file of the program, responsible for organizing the program on the highest level
 
 from parent import parent
-from manager import manager
-from provider import provider
+from menus_n_modes import menus_n_modes
 
 
 def main():
-    choice = -1
-    parent_object = parent()
-    manager_object = manager()
-    provider_object = provider()
+    choice = -1 #to hold menu choices 
+    menus = menus_n_modes()
 
-
+    #loops while the user hasn't chosen to exit the program
     while(choice != 3):
-        print("\nChoc Anon Main Menu: ")
-        print("1) Manager Mode")
-        print("2) Provider Mode")
-        print("3) Exit program")
-        choice = parent_object.get_menu_choice(3)
+        choice = menus.main_menu() #displays main menu to user and stores menu choice
 
-        if (choice == 1): manager_object.manager_mode()
-        if (choice == 2): provider_object.provider_mode()
+        #goes to manager menu if use chose that, where all manager mode functionality will be handled
+        if (choice == 1): menus.manager_menu()
 
-    print("\nProgram ended.")
+        #goes to provider menu if user chose that, where all provider mode functionality will be handled
+        if (choice == 2): menus.provider_menu()
 
+    #Lets user know the program has officially ended after the exited the while loop by enter 3 to exit the program
+    print("\nThe program has ended.\n")
 
 
 

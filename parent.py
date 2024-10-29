@@ -1,5 +1,5 @@
 #system_user.py
-#Choc An project
+#Doctor Patient Management System
 #This class holds all of the reusable functions, mainly for accessing files. This class is also the parent class to the manager and provider class which will facilitate manager and provider mode.
 
 import os
