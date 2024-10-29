@@ -3,9 +3,9 @@
 #This class is in charge of displaying all the high level menu options and organizing all the other classes and their functions
 #to be called correctly based on the user's menu choices.
 
-
 from parent import parent
 from profile_manager import profile_manager
+
 
 class menus_n_modes(parent):
     #class constructor to initialize other class objects to utilize 
