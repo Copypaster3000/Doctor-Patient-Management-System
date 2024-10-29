@@ -15,7 +15,7 @@ class profile_manager(parent):
 
     #this function specifically adds a new member profile
     def add_new_member_profile(self):
-        self.add_new_member_profile
+        self.add_new_member_profile("member")
 
 
     #this function adds a new profile to the data system, returns True for success or False for not added
@@ -32,7 +32,7 @@ class profile_manager(parent):
         print("You select to create a new doctor profile.")
         #store id number entered from manager in id_num
         name = super().get_text(f"\nEnter the {type}'s full name: ")
-        id_num = super().get_id_num(type) #makes sure id is not already taken and is valid
+        id_num = super().get_unused_id_num(type) #makes sure id is not already taken and is valid
         print(f"Enter the following for the {type}'s address.")
         street = super().get_text(f"\nEnter the {type}'s street: ")
         city = super().get_text(f"\nEnter the {type}'s city: ")
@@ -53,10 +53,48 @@ class profile_manager(parent):
             file.write(f"{zip}\n")
 
             if type == "member":
-                file.write("Status: Valid") #if it is a member profile, write into the file their valid status
+                file.write("valid") #if it is a member profile, write into the file their valid status
         
         print(f"\n{type.capitalize()} profile created.\n")
 
         #display file contents, if file not found...
         if not super().display_file_contents(file_name):
             print("Error: file not found in directory after creating doctor profile.")
+
+
+    #this function removes an existing doctor's profile
+    def remove_doc_profile(self):
+        choice = -1 #to holds user's menu choices for the function
+        file_name = "" #store entire file name
+        name = "" #to store doctor's name
+
+        #prompt user to enter ID num
+        print("\nEnter the ID number of the doctor whose profile you want to remove.")
+        id_num = super().get_9_digits() #get valid 9 digits from user
+
+        #check that a match doctor profile exists, store file name
+        file_name = super().file_exists(id_num, "doctor", "profile")
+
+        #if there is no matching doctor profile
+        if file_name is None:
+            print("There is no doctor profile with that ID number.")
+        else: 
+            name = super().get_first_line_of_file(file_name)
+            print(f"Profile for {id_num} found.")
+            print(f"\nAre you sure you want to delete doctor {name}'s profile?")
+            print(f"1) Yes, delete doctor {name}'s profile")
+            print("2) No, do not delete the doctor profile and return to the manager menu")
+            choice = super().get_menu_choice(2)
+
+        if (choice == 2): return 
+
+        if (super().delete_file(file_name)): print(f"\nDoctor {name}'s profile has succesfully been deleted.\n")
+        else: print("No profile was deleted.")
+
+        return
+
+
+            
+
+
+

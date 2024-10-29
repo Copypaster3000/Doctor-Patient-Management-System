@@ -3,6 +3,8 @@
 #This class holds all of the reusable functions, mainly for accessing files. This class is also the parent class to the manager and provider class which will facilitate manager and provider mode.
 
 import os
+import glob
+
 
 class parent:
     #get's and returns an int as a menu choice from user. pass in the number of valid menu choices
@@ -27,6 +29,7 @@ class parent:
 
         return choice #return valid menu choice as an int
 
+
     #this function display the contents of a file, returns true for success or false for file not found
     def display_file_contents(self, file_name):
         try:
@@ -39,13 +42,40 @@ class parent:
             print(f"File '{file_name}' not found.")
             return False #for file not found
 
-    #This function is not needed as a function, it's one line just use that line
-    #def file_exists(self, file_name):
-        #return os.path.exists(file_name)
+
+    #checks if file exists, pass in id number, 'doctor' or 'member' and file type, 'profile' or 'report'
+    #returns full file name of matching file is match found and None if no file found
+    def file_exists(self, id_num, person_type, file_type):
+        #define the pattern to match files with the specified format
+        pattern = f"{id_num}_{person_type}_*_{file_type}.txt"
+
+        #use glob to find files that match the pattern in the current directory
+        matching_files = glob.glob(pattern)
+
+        #check if a matching file was found
+        if matching_files: return matching_files[0]
+
+        #if no match was found
+        return None
+
+    #deletes the file of file_name passed in from the current directory
+    #displays errors if there's an issue, return True for success and False for failure
+    def delete_file(self, file_name):
+        try:
+            os.remove(file_name)  # Deletes the file with the specified name
+            return True
+        except FileNotFoundError:
+            print(f"{file_name} not found.")
+        except PermissionError:
+            print(f"Permission denied: {file_name}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+        return False
 
 
-    #this gets a valid ID number from the user and returns it, pass in "doctor" or "member" depending on who the ID number is for
-    def get_id_num(self, user):
+    #this gets a valid ID number from the user that is not in use and returns it, pass in "doctor" or "member" depending on who the ID number is for
+    def get_unused_id_num(self, user):
         done = False #variable used to confirm if the user is happy with the ID number
         choice = 0 #used to hold users choice to enter id number again or continue
 
@@ -74,6 +104,17 @@ class parent:
 
         return id_num
 
+
+    #this gets 9 digits from the user for an ID num, it does not check if the number is in use or not
+    #or if the user is happy with the digits
+    def get_9_digits(self):
+        id_num = input("Enter 9 digits: ")
+
+        while not self.is_9_digits(id_num):
+            id_num = input("Invalid input: Enter 9 integers: ")
+
+        return id_num 
+
     
     #this class returns true is a profile exists with the identification number passed in and false if not
     def person_exists(self, id_number):
@@ -97,8 +138,7 @@ class parent:
     def is_9_digits(self, num_str):
         #check if the string length is 5 and all characters are digits
         return len(num_str) == 9 and num_str.isdigit()
-            
-    
+                
 
     #pass in the prompt to get text from the user
     #this function will use the prompt to get the correct input and check with the user until they are satisfied with the input
@@ -118,3 +158,15 @@ class parent:
         #returns string of user input they are happy with
         return to_return 
 
+
+    #this function returns the first line in the text file thats name is passed in
+    #it strips newline character at the end if there is one
+    #if file not found prints error and returns none
+    def get_first_line_of_file(self, file_name):
+        #attempts to open specified file in read mode
+        try:
+            with open(file_name, 'r') as file: 
+                return file.readline().rstrip('\n') #reads and returns the first line of the file minus newline character
+        except FileNotFoundError: #if file not found
+            print(f"Error: {file_name} not found.")
+            return None

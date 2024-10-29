@@ -13,6 +13,7 @@ class menus_n_modes(parent):
         self.parent_object = parent() #an instance of the parent class to use it's functions
         self.profile_edits = profile_manager() #an instance of profile manager to use it's functions to manage profiles in the data base
 
+
     #displays main menu and returns the user's menu choice
     def main_menu(self):
         choice = -1 
@@ -50,6 +51,8 @@ class menus_n_modes(parent):
             #call appropriate function based on users menu choice
             if (choice == 5): self.profile_edits.add_new_doctor_profile()
             if (choice == 6): self.profile_edits.add_new_member_profile()
+            if (choice == 7): self.profile_edits.remove_doc_profile()
+
 
         print("Exited Manager Mode\n") #notifies user they have exited manager mode
 
@@ -60,7 +63,7 @@ class menus_n_modes(parent):
 
         #while user hasn't chosen to exit provider mode
         while (choice != 3):
-            print("Provider Mode")
+            print("\nProvider Mode")
             print("Select an option from the menu:")
             print("1) Log a member service")
             print("2) View services directory")
