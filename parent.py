@@ -1,6 +1,6 @@
 #system_user.py
 #Doctor Patient Management System
-#This class holds all of the reusable functions, mainly for accessing files. This class is also the parent class to the manager and provider class which will facilitate manager and provider mode.
+#This file holds the parent class. The parent class is the parent of the hierarchy. It is responsible for all of the reusable functions that will be reused in multiple children classes. 
 
 import os
 import glob
