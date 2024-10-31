@@ -58,6 +58,7 @@ class parent:
         #if no match was found
         return None
 
+
     #deletes the file of file_name passed in from the current directory
     #displays errors if there's an issue, return True for success and False for failure
     def delete_file(self, file_name):
@@ -82,11 +83,12 @@ class parent:
         #prompts for ID number
         id_num = input(f"\nEnter the {user}'s ID number: ")
 
+        #while user hasn't selected that they are happy with the ID num they entered
         while not done:
-            if not self.is_9_digits(id_num):
-                id_num = input("The ID number must be nine digits, enter a valid ID number: ")
-            elif self.person_exists(id_num):
-                id_num = input("That ID number is already in use, enter another ID number: ")
+            if not self.is_9_digits(id_num): #if ID num is not 9 digits
+                id_num = input("The ID number must be nine digits, enter a valid ID number: ") #tell user and prompt for new ID num
+            elif self.person_exists(id_num): #if ID num is already in use
+                id_num = input("That ID number is already in use, enter another ID number: ") #tell user and prompt for new ID num
             else: #if id num is not taken and is 9 digits set done to true
                 done = True
 

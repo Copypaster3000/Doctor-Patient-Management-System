@@ -1,5 +1,3 @@
-#This is Jordan's Change
-
 # Docotor Patient Management System
 
 ## Project Overview
