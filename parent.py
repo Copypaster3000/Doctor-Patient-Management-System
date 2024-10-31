@@ -101,6 +101,7 @@ class parent:
 
                 if choice == 2:
                     done = False
+                    id_num = input(f"Enter the {user}'s ID number: ")
                 else:
                     done = True
 
