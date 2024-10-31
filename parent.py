@@ -12,7 +12,6 @@ class parent:
     def get_menu_choice(self, choices):
         valid = False #to hold wether input is valid
         
-        
         while not valid:
             try: 
                 #get user input and convert to int
@@ -75,6 +74,7 @@ class parent:
         return False
 
 
+    #NOT FULLY WORKING, didn't work when we typed in an ID num that was already in use, also I think it didn't store new ID num in var from user
     #this gets a valid ID number from the user that is not in use and returns it, pass in "doctor" or "member" depending on who the ID number is for
     def get_unused_id_num(self, user):
         done = False #variable used to confirm if the user is happy with the ID number
@@ -94,7 +94,7 @@ class parent:
 
             if done: 
                 print(f"You entered: {id_num}")
-                print("Would you like to continue and use that ID number or enter a different ID number?")
+                print(f"Would you like to continue and use '{id_num}' or enter a different ID number?")
                 print("1) Continue")
                 print("2) Enter a different ID number")
                 choice = self.get_menu_choice(2)
@@ -128,7 +128,7 @@ class parent:
             files = os.listdir(current_directory)
             #iterate through the files and chick if any already has the id number
             for file in files:
-                if (file[:5] == id_number): return True #return true if a match is found
+                if (file[:9] == id_number): return True #return true if a match is found
             
             return False #id number not in use
         except FileNotFoundError:
