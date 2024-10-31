@@ -74,7 +74,6 @@ class parent:
         return False
 
 
-    #NOT FULLY WORKING, didn't work when we typed in an ID num that was already in use, also I think it didn't store new ID num in var from user
     #this gets a valid ID number from the user that is not in use and returns it, pass in "doctor" or "member" depending on who the ID number is for
     def get_unused_id_num(self, user):
         done = False #variable used to confirm if the user is happy with the ID number
@@ -92,20 +91,21 @@ class parent:
             else: #if id num is not taken and is 9 digits set done to true
                 done = True
 
-            if done: 
+            #if id_num is 9 digits and not already in use
+            if done: #confirm the user wants to use that number
                 print(f"You entered: {id_num}")
                 print(f"Would you like to continue and use '{id_num}' or enter a different ID number?")
                 print("1) Continue")
                 print("2) Enter a different ID number")
-                choice = self.get_menu_choice(2)
+                choice = self.get_menu_choice(2) #get menu choice from user
 
                 if choice == 2:
-                    done = False
+                    done = False #if the user wants to re enter ID, get id again and go through while loop again
                     id_num = input(f"Enter the {user}'s ID number: ")
                 else:
-                    done = True
+                    done = True #set to true to exit while loop
 
-        return id_num
+        return id_num #return a new valid unused ID num
 
 
     #this gets 9 digits from the user for an ID num, it does not check if the number is in use or not
