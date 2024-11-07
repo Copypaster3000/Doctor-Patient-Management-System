@@ -40,12 +40,14 @@ class menus_n_modes(parent):
             print("4) Generate a weekly ETF report")
             print("5) Create a new doctor profile")
             print("6) Create a new member profile")
-            print("7) Remove an existing doctor profile")
-            print("8) Remove an existing member profile")
-            print("9) Change a members status")
-            print("10) Add a service to the services directory")
-            print("11) Remove a service from the service directory")
-            print("12) Exit Manager Mode")
+            print("7) Edit an existing doctor profile")
+            print("8) Edit an existing member profile")
+            print("9) Remove an existing doctor profile")
+            print("10) Remove an existing member profile")
+            print("11) Change a members status")
+            print("12) Add a service to the services directory")
+            print("13) Remove a service from the service directory")
+            print("14) Exit Manager Mode")
             choice = self.parent_object.get_menu_choice(12) #get users menu choice
 
             #call appropriate function based on users menu choice
