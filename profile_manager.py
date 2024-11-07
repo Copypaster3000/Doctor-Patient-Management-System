@@ -62,38 +62,55 @@ class profile_manager(parent):
             print("Error: file not found in directory after creating doctor profile.")
 
 
-    #this function removes an existing doctor's profile
-    def remove_doc_profile(self):
+    #removes a doctor's profile based on user input
+    def remove_doctor_profile(self):
+        self.remove_profile("doctor")
+
+        return
+
+
+    #removes a member's profile
+    def remove_member_profile(self):
+        self.remove_profile("member")
+
+        return
+
+
+    #this function removes an existing profile, pass in "member" or "doctor" for the type of profile you wish to remove
+    def remove_profile(self, type):
         choice = -1 #to holds user's menu choices for the function
         file_name = "" #store entire file name
         name = "" #to store doctor's name
 
         #prompt user to enter ID num
-        print("\nEnter the ID number of the doctor whose profile you want to remove.")
+        print(f"\nEnter the ID number of the {type} whose profile you want to remove.")
         id_num = super().get_9_digits() #get valid 9 digits from user
 
         #check that a match doctor profile exists, store file name
-        file_name = super().file_exists(id_num, "doctor", "profile")
+        file_name = super().file_exists(id_num, type, "profile")
 
         #if there is no matching doctor profile
         if file_name is None:
-            print("There is no doctor profile with that ID number.")
+            print(f"There is no {type} profile with that ID number.")
         else: 
             name = super().get_first_line_of_file(file_name)
             print(f"Profile for {id_num} found.")
-            print(f"\nAre you sure you want to delete doctor {name}'s profile?")
-            print(f"1) Yes, delete doctor {name}'s profile")
-            print("2) No, do not delete the doctor profile and return to the manager menu")
+            print(f"\nAre you sure you want to delete {type} {name}'s profile?")
+            print(f"1) Yes, delete {type} {name}'s profile")
+            print(f"2) No, do not delete the {type} profile and return to the manager menu")
             choice = super().get_menu_choice(2)
 
         if (choice == 2): return 
 
-        if (super().delete_file(file_name)): print(f"\nDoctor {name}'s profile has succesfully been deleted.\n")
+        if (super().delete_file(file_name)): print(f"\n{name}'s {type} profile has successfully been deleted.\n")
         else: print("No profile was deleted.")
 
         return
 
 
+    #This function updates an existing member's status
+    def change_member_status(self):
+        pass
             
 
 

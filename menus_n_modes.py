@@ -51,7 +51,8 @@ class menus_n_modes(parent):
             #call appropriate function based on users menu choice
             if (choice == 5): self.profile_edits.add_new_doctor_profile()
             if (choice == 6): self.profile_edits.add_new_member_profile()
-            if (choice == 7): self.profile_edits.remove_doc_profile()
+            if (choice == 7): self.profile_edits.remove_doctor_profile()
+            if (choice == 8): self.profile_edits.remove_member_profile()
 
 
         print("Exited Manager Mode\n") #notifies user they have exited manager mode
