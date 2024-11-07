@@ -44,9 +44,9 @@ class menus_n_modes(parent):
             print("8) Edit an existing member profile")
             print("9) Remove an existing doctor profile")
             print("10) Remove an existing member profile")
-            print("11) Change a members status")
+            print("11) Change a member's status")
             print("12) Add a service to the services directory")
-            print("13) Remove a service from the service directory")
+            print("13) Remove a service from the services directory")
             print("14) Exit Manager Mode")
             choice = self.parent_object.get_menu_choice(12) #get users menu choice
 

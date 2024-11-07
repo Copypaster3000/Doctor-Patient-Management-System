@@ -1,0 +1,42 @@
+First and Last Name
+ID number (9 digits)
+Street 
+City
+State
+Zip code
+Status (only exactly "valid" or "invalid")
+Comments (Peranting to member's status, will be left empty if no comments, must not exceed one line)
+
+Current date and time (MM-DD-YYYY HH:MM:SS)
+Date service was provided (MM-DD-YYYY)
+Provider number (9 digits)
+Member number (9 digits)
+Service code (6 digits)
+Fee (up to $999.99)
+Comments (optional)
+
+Current date and time (MM-DD-YYYY HH:MM:SS)
+Date service was provided (MM-DD-YYYY)
+Provider number (9 digits)
+Member number (9 digits)
+Service code (6 digits)
+Fee (up to $999.99)
+Comments (optional)
+
+Current date and time (MM-DD-YYYY HH:MM:SS)
+Date service was provided (MM-DD-YYYY)
+Provider number (9 digits)
+Member number (9 digits)
+Service code (6 digits)
+Fee (up to $999.99)
+Comments (optional)
+
+Current date and time (MM-DD-YYYY HH:MM:SS)
+Date service was provided (MM-DD-YYYY)
+Provider number (9 digits)
+Member number (9 digits)
+Service code (6 digits)
+Fee (up to $999.99)
+Comments (optional)
+
+...

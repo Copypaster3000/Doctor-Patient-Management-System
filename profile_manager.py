@@ -28,6 +28,8 @@ class profile_manager(parent):
         city = ""
         state = ""
         zip = ""
+        status = "valid" #the status for member's
+        notes = "" #notes for member's status
 
         print("You select to create a new doctor profile.")
         #store id number entered from manager in id_num
@@ -38,6 +40,7 @@ class profile_manager(parent):
         city = super().get_text(f"\nEnter the {type}'s city: ")
         state = super().get_text(f"\nEnter the {type}'s state: ")
         zip = super().get_text(f"\nEnter the {type}'s zip code: ")
+        
 
         #construct file name
         no_spaces_name = name.replace(" ", "_") #replaces spaces with underscores
@@ -53,7 +56,8 @@ class profile_manager(parent):
             file.write(f"{zip}\n")
 
             if type == "member":
-                file.write("valid") #if it is a member profile, write into the file their valid status
+                file.write(status) #if it is a member profile, write into the file their valid status
+                file.write(notes)
         
         print(f"\n{type.capitalize()} profile created.\n")
 
