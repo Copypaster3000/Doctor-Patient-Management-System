@@ -4,7 +4,7 @@ Street
 City
 State
 Zip code
-//There is an empty line here, below starts the service provided
+
 Current date and time (MM-DD-YYYY HH:MM:SS)
 Date service was provided (MM-DD-YYYY)
 Provider number (9 digits)
