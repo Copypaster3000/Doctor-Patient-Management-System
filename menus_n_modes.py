@@ -72,6 +72,8 @@ class menus_n_modes(parent):
             print("2) View services directory")
             print("3) Exit provider mode")
             choice = self.parent_object.get_menu_choice(3) #gets user's menu choice
+            
+           # if (choice == 1): 
 
         print("Exited Provider Mode\n") #notifies user they have exited provider mode
 
