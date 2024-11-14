@@ -31,7 +31,7 @@ class menus_n_modes(parent):
         choice = -1 #to hold users menu choice
 
         #while the user hasn't chosen to exit manager mode
-        while (choice != 12):
+        while (choice != 14):
             print("\nManger Mode")
             print("Select an option form the menu:")
             print("1) Generate a doctor's weekly services report")
@@ -48,13 +48,15 @@ class menus_n_modes(parent):
             print("12) Add a service to the services directory")
             print("13) Remove a service from the services directory")
             print("14) Exit Manager Mode")
-            choice = self.parent_object.get_menu_choice(12) #get users menu choice
+            choice = self.parent_object.get_menu_choice(14) #get users menu choice
 
             #call appropriate function based on users menu choice
             if (choice == 5): self.profile_edits.add_new_doctor_profile()
             if (choice == 6): self.profile_edits.add_new_member_profile()
-            if (choice == 7): self.profile_edits.remove_doctor_profile()
-            if (choice == 8): self.profile_edits.remove_member_profile()
+            if (choice == 7): self.profile_edits.edit_doctor_profile()
+            if (choice == 8): self.profile_edits.edit_member_profile()
+            if (choice == 9): self.profile_edits.remove_doctor_profile()
+            if (choice == 10): self.profile_edits.remove_member_profile()
 
 
         print("Exited Manager Mode\n") #notifies user they have exited manager mode

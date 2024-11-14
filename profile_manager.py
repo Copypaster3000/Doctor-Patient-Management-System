@@ -15,7 +15,7 @@ class profile_manager(parent):
 
     #this function specifically adds a new member profile
     def add_new_member_profile(self):
-        self.add_new_member_profile("member")
+        self.add_new_profile("member")
 
 
     #this function adds a new profile to the data system, returns True for success or False for not added
@@ -28,10 +28,10 @@ class profile_manager(parent):
         city = ""
         state = ""
         zip = ""
-        status = "valid" #the status for member's
-        notes = "" #notes for member's status
+        status = "valid\n" #the status for member's
+        notes = "none" #notes for member's status
 
-        print("You select to create a new doctor profile.")
+        print(f"You select to create a new {type} profile.")
         #store id number entered from manager in id_num
         name = super().get_text(f"\nEnter the {type}'s full name: ")
         id_num = super().get_unused_id_num(type) #makes sure id is not already taken and is valid
@@ -95,26 +95,89 @@ class profile_manager(parent):
 
         #if there is no matching doctor profile
         if file_name is None:
-            print(f"There is no {type} profile with that ID number.")
+            print(f"There is no {type} profile with that ID number.") 
         else: 
-            name = super().get_first_line_of_file(file_name)
+            name = super().get_line_of_file(file_name, 0)
             print(f"Profile for {id_num} found.")
             print(f"\nAre you sure you want to delete {type} {name}'s profile?")
             print(f"1) Yes, delete {type} {name}'s profile")
             print(f"2) No, do not delete the {type} profile and return to the manager menu")
             choice = super().get_menu_choice(2)
 
-        if (choice == 2): return 
+        if (choice == 2): return  #exit function and return to manager menu if user doesn't want to remove this profile
 
-        if (super().delete_file(file_name)): print(f"\n{name}'s {type} profile has successfully been deleted.\n")
-        else: print("No profile was deleted.")
+        if file_name is not None:
+            super().delete_file(file_name) #delete profile
+            print(f"\n{name}'s {type} profile has successfully been deleted.\n")
+        else: 
+            print("No profile was deleted.") 
+
+        return
+
+    #allows user to edit all the personal details of a doctors profile
+    def edit_doctor_profile(self):
+        self.edit_profile("doctor")
+
+        return
+
+    
+    #allows user to edit all the personal details of a member profile
+    def edit_member_profile(self):
+        self.edit_profile("member")
 
         return
 
 
-    #This function updates an existing member's status
-    def change_member_status(self):
-        pass
+    #to edit a profile pass in "doctor" or "member" for the type of profile to edit
+    def edit_profile(self, type):
+        print(f"\nEnter the ID number of the {type} whose profile you want to edit.")
+        id_num = super().get_9_digits()
+
+        file_name = super().file_exists(id_num, type, "profile")
+
+        if file_name is None: #if there is not an existing profile with that ID number and type
+            print(f"There is no profile with that ID number.") #let user know
+            return #and return to manager menu
+
+        name = super().get_line_of_file(file_name, 0) #get the name of the profile considering being edited
+        #confirm the user wants to edit that persons profile
+        print(f"Profile for {id_num} found.")
+        print(f"\nAre you sure you want to edit {type} {name}'s profile?")
+        print(f"1) Yes, edit {type} {name}'s profile")
+        print(f"2) No, do not edit the {type} profile and return to the manager menu")
+        choice = super().get_menu_choice(2)
+
+        if (choice == 2):
+            print("Okay, returning to manager menu.")
+            return
+
+        #allow editing of the following profile details
+        super().edit_file_line(0, "name", file_name)
+        #the ID number is not allowed to be edited
+        super().edit_file_line(2, "street address", file_name)
+        super().edit_file_line(3, "city", file_name)
+        super().edit_file_line(4, "state", file_name)
+        super().edit_file_line(5, "zip code", file_name)
+
+        #if editing a member profile, allow editing of status and comments
+        if type == "member": 
+            super().edit_file_line(6, "status", file_name)
+            super().edit_file_line(7, "comments", file_name)
+
+
+        print("\nHere is the updated profile: ")
+
+        if type == "member":
+            super().display_lines_up_to(file_name, 8)
+        else:
+            super().display_lines_up_to(file_name, 6)
+        
+
+        
+
+
+
+
             
 
 
