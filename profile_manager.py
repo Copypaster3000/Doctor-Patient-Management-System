@@ -29,7 +29,7 @@ class profile_manager(parent):
         state = ""
         zip = ""
         status = "valid\n" #the status for member's
-        notes = "none" #notes for member's status
+        notes = "none\n" #notes for member's status
 
         print(f"You select to create a new {type} profile.")
         #store id number entered from manager in id_num
