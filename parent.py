@@ -12,7 +12,6 @@ class parent:
     def get_menu_choice(self, choices):
         valid = False #to hold wether input is valid
         
-        
         while not valid:
             try: 
                 #get user input and convert to int
@@ -41,6 +40,10 @@ class parent:
         except FileNotFoundError:
             print(f"File '{file_name}' not found.")
             return False #for file not found
+
+
+    #IF YOU ALREADY HAVE THE FULL FILE NAME
+    #use os.path.isfile(file_name) to determine if the file exists
 
 
     #checks if file exists, pass in id number, 'doctor' or 'member' and file type, 'profile' or 'report'
@@ -92,19 +95,21 @@ class parent:
             else: #if id num is not taken and is 9 digits set done to true
                 done = True
 
-            if done: 
+            #if id_num is 9 digits and not already in use
+            if done: #confirm the user wants to use that number
                 print(f"You entered: {id_num}")
-                print("Would you like to continue and use that ID number or enter a different ID number?")
+                print(f"Would you like to continue and use '{id_num}' or enter a different ID number?")
                 print("1) Continue")
                 print("2) Enter a different ID number")
-                choice = self.get_menu_choice(2)
+                choice = self.get_menu_choice(2) #get menu choice from user
 
                 if choice == 2:
-                    done = False
+                    done = False #if the user wants to re enter ID, get id again and go through while loop again
+                    id_num = input(f"Enter the {user}'s ID number: ")
                 else:
-                    done = True
+                    done = True #set to true to exit while loop
 
-        return id_num
+        return id_num #return a new valid unused ID num
 
 
     #this gets 9 digits from the user for an ID num, it does not check if the number is in use or not
@@ -113,7 +118,7 @@ class parent:
         id_num = input("Enter 9 digits: ")
 
         while not self.is_9_digits(id_num):
-            id_num = input("Invalid input: Enter 9 integers: ")
+            id_num = input("Invalid input, enter 9 integers: ")
 
         return id_num 
 
@@ -128,7 +133,7 @@ class parent:
             files = os.listdir(current_directory)
             #iterate through the files and chick if any already has the id number
             for file in files:
-                if (file[:5] == id_number): return True #return true if a match is found
+                if (file[:9] == id_number): return True #return true if a match is found
             
             return False #id number not in use
         except FileNotFoundError:
@@ -161,14 +166,85 @@ class parent:
         return to_return 
 
 
-    #this function returns the first line in the text file thats name is passed in
-    #it strips newline character at the end if there is one
-    #if file not found prints error and returns none
-    def get_first_line_of_file(self, file_name):
+    #this function returns the specified ine the text file whose name is passed in
+    #it strips the newline character the the end is there is one
+    #if the file is not found, it prints an error and returns none
+    #the line number parameter specifies which line to read, (0 for the first)
+    def get_line_of_file(self, file_name, line_number):
         #attempts to open specified file in read mode
         try:
             with open(file_name, 'r') as file: 
-                return file.readline().rstrip('\n') #reads and returns the first line of the file minus newline character
+                #reads all lines into a list
+                lines = file.readlines()
+                #checks if the line_number is within range
+                if 0 <= line_number < len(lines):
+                    return lines[line_number].rstrip('\n') #returns specified line without newline character
+                else:
+                    print(f"Error: Line {line_number} is out of range.")
+                    return None
+
         except FileNotFoundError: #if file not found
             print(f"Error: {file_name} not found.")
             return None
+
+
+
+    #used to edit a single line of a file, pass in the line of the file you want to edit, a short one or two word descriptor of the line contents
+    #and the file name
+    def edit_file_line(self, line_num, prompt, file_name):
+        if not (os.path.isfile(file_name)): #checks that file exists, returns if it doesn't
+            print(f"Error {file_name} does not exist in local directory, unable to edit.")
+            return
+
+        current_line = self.get_line_of_file(file_name, line_num)
+        print(f"\nWould you like to edit the {prompt}? It is currently '{current_line}'.")
+        print(f"1) Yes, edit the {prompt}")
+        print("2) No, leave this as it is")
+        choice = self.get_menu_choice(2)
+
+        if (choice == 2): return #the user doesn't want to edit this line
+
+        #get the replacement line from the user
+        new_text = self.get_text(f"\nEnter the updated {prompt} you would like: ")
+
+        #rewrite line in file
+        self.overwrite_line_in_file(file_name, line_num, new_text)
+
+
+
+        
+    #this function overwrites a specific line in a text file with new text.
+    #if the line number is out of range or the file is not found, it prints and error message
+    def overwrite_line_in_file(self, file_name, line_number, new_text):
+        try:
+            #open the file in read mode to get all the lines
+            with open(file_name, 'r') as file:
+                lines = file.readlines()
+
+                #check if the line_number is within range
+                if 0 <= line_number < len(lines):
+                    #overwrite the specified line with new text (including a newline character at the end)
+                    lines[line_number] = new_text + '\n'
+
+                    #open the file in write mode to update it
+                    with open(file_name, 'w') as file:
+                        file.writelines(lines)
+                else:
+                    print(f"Error: Line {line_number} is out of range.")
+
+        except FileNotFoundError:
+            print(f"Error: {file_name} not found.")
+
+
+    #displays the lines of a file upto and including the line number passed in
+    def display_lines_up_to(self, file_name, lines):
+        try:
+            with open(file_name, 'r') as file:
+                #read lines up to the specified line number
+                for i in range(lines):
+                    line = file.readline() #read each line one by one
+                    if not line:
+                        break
+                    print(line, end="") #print line exactly as it is
+        except FileNotFoundError:
+            print(f"Error: {file_name} not found.")

@@ -31,7 +31,7 @@ class menus_n_modes(parent):
         choice = -1 #to hold users menu choice
 
         #while the user hasn't chosen to exit manager mode
-        while (choice != 12):
+        while (choice != 14):
             print("\nManger Mode")
             print("Select an option form the menu:")
             print("1) Generate a doctor's weekly services report")
@@ -40,18 +40,23 @@ class menus_n_modes(parent):
             print("4) Generate a weekly ETF report")
             print("5) Create a new doctor profile")
             print("6) Create a new member profile")
-            print("7) Remove an existing doctor profile")
-            print("8) Remove an existing member profile")
-            print("9) Change a members status")
-            print("10) Add a service to the services directory")
-            print("11) Remove a service from the service directory")
-            print("12) Exit Manager Mode")
-            choice = self.parent_object.get_menu_choice(12) #get users menu choice
+            print("7) Edit an existing doctor profile")
+            print("8) Edit an existing member profile")
+            print("9) Remove an existing doctor profile")
+            print("10) Remove an existing member profile")
+            print("11) Change a member's status")
+            print("12) Add a service to the services directory")
+            print("13) Remove a service from the services directory")
+            print("14) Exit Manager Mode")
+            choice = self.parent_object.get_menu_choice(14) #get users menu choice
 
             #call appropriate function based on users menu choice
             if (choice == 5): self.profile_edits.add_new_doctor_profile()
             if (choice == 6): self.profile_edits.add_new_member_profile()
-            if (choice == 7): self.profile_edits.remove_doc_profile()
+            if (choice == 7): self.profile_edits.edit_doctor_profile()
+            if (choice == 8): self.profile_edits.edit_member_profile()
+            if (choice == 9): self.profile_edits.remove_doctor_profile()
+            if (choice == 10): self.profile_edits.remove_member_profile()
 
 
         print("Exited Manager Mode\n") #notifies user they have exited manager mode
@@ -69,6 +74,8 @@ class menus_n_modes(parent):
             print("2) View services directory")
             print("3) Exit provider mode")
             choice = self.parent_object.get_menu_choice(3) #gets user's menu choice
+            
+           # if (choice == 1): 
 
         print("Exited Provider Mode\n") #notifies user they have exited provider mode
 

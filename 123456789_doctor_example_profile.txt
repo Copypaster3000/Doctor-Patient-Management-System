@@ -1,0 +1,40 @@
+First and Last Name
+ID number (9 digits)
+Street
+City
+State
+Zip code
+
+Current date and time (MM-DD-YYYY HH:MM:SS)
+Date service was provided (MM-DD-YYYY)
+Provider number (9 digits)
+Member number (9 digits)
+Service code (6 digits)
+Fee (up to $999.99)
+Comments (optional) If there are no comments this will be an empty line
+
+Current date and time (MM-DD-YYYY HH:MM:SS)
+Date service was provided (MM-DD-YYYY)
+Provider number (9 digits)
+Member number (9 digits)
+Service code (6 digits)
+Fee (up to $999.99)
+Comments (optional)
+
+Current date and time (MM-DD-YYYY HH:MM:SS)
+Date service was provided (MM-DD-YYYY)
+Provider number (9 digits)
+Member number (9 digits)
+Service code (6 digits)
+Fee (up to $999.99)
+Comments (optional)
+
+Current date and time (MM-DD-YYYY HH:MM:SS)
+Date service was provided (MM-DD-YYYY)
+Provider number (9 digits)
+Member number (9 digits)
+Service code (6 digits)
+Fee (up to $999.99)
+Comments (optional)
+
+...
