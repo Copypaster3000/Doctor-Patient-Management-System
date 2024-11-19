@@ -1,0 +1,41 @@
+123456012_Jack_Harris_doctor_profile.txt
+
+Jack Harris
+123456012
+12 Elm Street
+Portland
+OR
+97201
+
+11-18-2024 08:15:30
+11-17-2024
+987654012
+123456012
+654012
+160.00
+Routine check-up completed successfully.
+
+11-18-2024 08:15:30
+11-17-2024
+987654012
+123456012
+654012
+160.00
+Routine check-up completed successfully.
+
+11-18-2024 08:15:30
+11-17-2024
+987654012
+123456012
+654012
+160.00
+Routine check-up completed successfully.
+
+11-18-2024 08:15:30
+11-17-2024
+987654012
+123456012
+654012
+160.00
+Routine check-up completed successfully.
+
