@@ -1,0 +1,41 @@
+123456004_Bob_Brown_doctor_profile.txt
+
+Bob Brown
+123456004
+4 Elm Street
+Portland
+OR
+97201
+
+11-18-2024 08:15:30
+11-17-2024
+987654004
+123456004
+654004
+120.00
+Routine check-up completed successfully.
+
+11-18-2024 08:15:30
+11-17-2024
+987654004
+123456004
+654004
+120.00
+Routine check-up completed successfully.
+
+11-18-2024 08:15:30
+11-17-2024
+987654004
+123456004
+654004
+120.00
+Routine check-up completed successfully.
+
+11-18-2024 08:15:30
+11-17-2024
+987654004
+123456004
+654004
+120.00
+Routine check-up completed successfully.
+
