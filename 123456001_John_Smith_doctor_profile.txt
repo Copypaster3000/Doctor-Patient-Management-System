@@ -1,5 +1,3 @@
-123456001_John_Smith_doctor_profile.txt
-
 John Smith
 123456001
 1 Elm Street

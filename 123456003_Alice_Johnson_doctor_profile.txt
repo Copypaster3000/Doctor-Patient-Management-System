@@ -1,5 +1,3 @@
-123456003_Alice_Johnson_doctor_profile.txt
-
 Alice Johnson
 123456003
 3 Elm Street

@@ -1,5 +1,3 @@
-123456002_Jane_Doe_doctor_profile.txt
-
 Jane Doe
 123456002
 2 Elm Street

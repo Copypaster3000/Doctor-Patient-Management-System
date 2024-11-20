@@ -1,5 +1,3 @@
-123456020_Ruby_Perez_doctor_profile.txt
-
 Ruby Perez
 123456020
 20 Elm Street

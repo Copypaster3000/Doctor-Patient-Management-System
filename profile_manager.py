@@ -31,7 +31,7 @@ class profile_manager(parent):
         status = "valid\n" #the status for member's
         notes = "none\n" #notes for member's status
 
-        print(f"You select to create a new {type} profile.")
+        print(f"You selected to create a new {type} profile.")
         #store id number entered from manager in id_num
         name = super().get_text(f"\nEnter the {type}'s full name: ")
         id_num = super().get_unused_id_num(type) #makes sure id is not already taken and is valid
