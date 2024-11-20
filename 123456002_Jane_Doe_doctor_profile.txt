@@ -1,0 +1,41 @@
+123456002_Jane_Doe_doctor_profile.txt
+
+Jane Doe
+123456002
+2 Elm Street
+Portland
+OR
+97201
+
+11-18-2024 08:15:30
+11-17-2024
+987654002
+123456002
+654002
+110.00
+Routine check-up completed successfully.
+
+11-18-2024 08:15:30
+11-17-2024
+987654002
+123456002
+654002
+110.00
+Routine check-up completed successfully.
+
+11-18-2024 08:15:30
+11-17-2024
+987654002
+123456002
+654002
+110.00
+Routine check-up completed successfully.
+
+11-18-2024 08:15:30
+11-17-2024
+987654002
+123456002
+654002
+110.00
+Routine check-up completed successfully.
+
