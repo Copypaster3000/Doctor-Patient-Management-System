@@ -1,4 +1,4 @@
-# Docotor Patient Management System
+# Doctor Patient Management System
 
 
 ## File Structure
