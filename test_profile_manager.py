@@ -91,7 +91,7 @@ class TestProfileManager(unittest.TestCase):
             assert lines[4].strip() == "NY"
             assert lines[5].strip() == "10001"
             assert lines[6].strip() == "valid"
-            assert lines[7].strip() == "none"
+            assert lines[7].strip() == "no comments"
 
 
 
@@ -113,7 +113,7 @@ class TestProfileManager(unittest.TestCase):
             assert lines[4].strip() == "NY"
             assert lines[5].strip() == "10001"
             assert lines[6].strip() == "valid"
-            assert lines[7].strip() == "none"
+            assert lines[7].strip() == "no comments"
             
 
 
@@ -201,7 +201,7 @@ class TestProfileManager(unittest.TestCase):
             file.write("NY\n")
             file.write("10001\n")
             file.write("valid\n")
-            file.write("none\n")
+            file.write("no comments\n")
 
         #verify the contents of the file before editing
         with open(self.member_file, 'r') as f:
@@ -213,6 +213,7 @@ class TestProfileManager(unittest.TestCase):
             assert lines[4].strip() == "NY"
             assert lines[5].strip() == "10001"
             assert lines[6].strip() == "valid"
+            assert lines[7].strip() == "no comments"
 
         #run member editing function that is being tested
         self.pm.edit_member_profile()
