@@ -28,6 +28,7 @@
 2) View services directory  
 3) Exit provider mode  
 
+
 ## Class Descriptions
 
 ### `parent`
@@ -84,6 +85,7 @@
 - Child of `parent`.  
 - Manages high-level menu interactions and user choices.  
 - Responsible for displaying menus and calling the appropriate functions based on user input.  
+
 
 ## File Structure
 The system operates with specific file naming conventions:
