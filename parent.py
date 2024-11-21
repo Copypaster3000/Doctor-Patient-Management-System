@@ -1,4 +1,4 @@
-#system_user.py
+#parent.py
 #Doctor Patient Management System
 #This file holds the parent class. The parent class is the parent of the hierarchy. It is responsible for all of the reusable functions that will be reused in multiple children classes.
 
