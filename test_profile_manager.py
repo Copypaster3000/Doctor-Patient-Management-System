@@ -232,6 +232,39 @@ class TestProfileManager(unittest.TestCase):
 
 
 
+    #tests editing the status of an existing member profile
+    @mock.patch('builtins.input', side_effect=["549837813", "1", "1", "f", "1"]) #acts as user input
+    def test_edit_member_status(self, mock_input):
+        #write initial information into the member file
+        with open(self.member_file, 'w') as file:
+            file.write("Jane Smith\n")
+            file.write("549837813\n")
+            file.write("456 Oak Avenue\n")
+            file.write("Metropolis\n")
+            file.write("NY\n")
+            file.write("10001\n")
+            file.write("valid\n")
+            file.write("no comments\n")
+
+        #verify the contents of the file before editing
+        with open(self.member_file, 'r') as f:
+            lines = f.readlines()
+            assert lines[0].strip() == "Jane Smith"
+            assert lines[1].strip() == "549837813"
+            assert lines[6].strip() == "valid"
+            assert lines[7].strip() == "no comments"
+
+        #run the edit_member_status function
+        self.pm.edit_member_status()
+
+        #verify the status and comments have been updated
+        with open(self.member_file, 'r') as f:
+            lines = f.readlines()
+            assert lines[6].strip() == "invalid"  #check the updated status
+            assert lines[7].strip() == "f"        #check the updated comments
+
+
+
 
 if __name__ == '__main__':
     unittest.main()
