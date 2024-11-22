@@ -59,6 +59,7 @@ class menus_n_modes(parent):
             if (choice == 8): self.profile_edits.edit_member_profile()
             if (choice == 9): self.profile_edits.remove_doctor_profile()
             if (choice == 10): self.profile_edits.remove_member_profile()
+            if (choice == 11): self.profile_edits.edit_member_status()
             if (choice == 12): self.services.add_service()
             if (choice == 13): self.services.remove_service()
 
