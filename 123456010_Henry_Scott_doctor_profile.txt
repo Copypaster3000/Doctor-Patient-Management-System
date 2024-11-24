@@ -1,5 +1,3 @@
-123456010_Henry_Scott_doctor_profile.txt
-
 Henry Scott
 123456010
 10 Elm Street

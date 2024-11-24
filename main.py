@@ -1,7 +1,6 @@
 #main.py
 #Doctor Patient Management System
 #This is the main file of the program, responsible for organizing the program on the highest level
-#nikki's comment for test commit
 
 from parent import parent
 from menus_n_modes import menus_n_modes

@@ -169,7 +169,7 @@ class parent:
         # loops while the user is not happy with their input
         while choice != 1:
             to_return = input(prompt)
-            print(f"You entered '{to_return}'")
+            print(f"\nYou entered '{to_return}'")
             print("1) Continue")
             print("2) Re-enter info")
             choice = self.get_menu_choice(2)

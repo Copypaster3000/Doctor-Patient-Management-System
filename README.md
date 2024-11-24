@@ -1,49 +1,99 @@
-# Docotor Patient Management System
+# Doctor Patient Management System
 
-## Project Overview
-This project is a data management system developed for Chocoholics Anonymous (ChocAn) to streamline member services, billing, and reporting. The software provides two main operational modes, **Manager Mode** and **Provider Mode**, aimed at assisting healthcare providers and managers with tasks like scheduling, logging services, and generating billing reports.
+## High-Level Menu Options
 
-## Purpose and Scope
-The ChocAn system is designed to process data to help manage chocolate addiction services for members of Chocoholics Anonymous. The system supports:
-- Service scheduling and logging for members.
-- Managing doctors and members.
-- Generating doctor and member service reports. 
-- Managing services provided,
+### Main Menu
+1) Manager Mode  
+2) Provider Mode  
+3) Exit Program  
 
-> **Note**: This project focuses solely on building the ChocAn data processing software and does not include server communication, financial processing, or hardware development.
+### Manager Mode
+1) Generate a doctor's weekly service report  
+2) Generate a member's weekly service report  
+3) Generate a Provider Summary report for all doctors  
+4) Generate a weekly ETF report  
+5) Create a new doctor profile  
+6) Create a new member profile  
+7) Edit a doctor profile  
+8) Edit a member profile  
+9) Remove an existing doctor profile  
+10) Remove an existing member profile  
+11) Change a member's status  
+12) Add a service to the services directory  
+13) Remove a service from the services directory  
+14) Exit manager mode  
 
-## Features and Functionalities
+### Provider Mode
+1) Log a member service  
+2) View services directory  
+3) Exit provider mode  
 
-### 1. Manager Mode
-In Manager Mode, the manager can perform key administrative tasks:
-- **Generate Billing Reports**:
-  - **Doctor Billing Report**: Provides a summary of services a doctor has performed in a billing period, including member details and total fees.
-  - **Member Billing Report**: Summarizes services received by a member and calculates total fees owed.
-- **Add or Remove Profiles**:
-  - **Add New Doctor**: Creates a profile for a doctor with basic contact and identification information.
-  - **Add New Member**: Creates a profile for a member, including contact and identification information.
-  - **Remove Doctor/Member**: Deletes profiles from the system based on unique identification numbers.
-- **Change Member Status**: Updates the status of a member (e.g., to "suspended" for unpaid dues).
-- **Service Management**: Adds or removes services that providers can offer.
 
-### 2. Provider Mode
-Provider Mode is used by healthcare providers (doctors) to manage services for members:
-- **Provider Login**: Authenticates the provider based on their unique ID.
-- **Log Member Service**: Logs details of a service provided to a member, updating both the member’s and provider’s profiles.
-- **View Services Directory**: Allows providers to view all available services with codes and fees.
+## Class Descriptions
 
-### 3. Data Management
-The system manages data through a set of organized text files, which store essential information on members, providers, services, and billing reports.
-- **Doctor Profile Files**: Stores a doctor’s details and logs of services provided.
-- **Member Profile Files**: Tracks each member’s details and logs services received.
-- **Billing Report Files**: Generates weekly billing summaries for both doctors and members.
-- **Services File**: Maintains a list of available services, editable by the manager.
+### `parent`
+- The parent class of the hierarchy.  
+- Contains all reusable functions for handling files and any other small functions reused across classes.  
+
+### `provider_reports(parent)`
+- Child of `parent`.  
+- Handles generating provider-related reports.  
+- Responsible for:  
+  - Manager Mode:  
+    - Generate a doctor's weekly service report  
+    - Generate a Provider Summary report for all doctors  
+    - Generate a weekly ETF report  
+
+### `member_reports(parent)`
+- Child of `parent`.  
+- Handles member-related reports.  
+- Responsible for:  
+  - Manager Mode:  
+    - Generate a member's weekly service report  
+
+### `profile_manager(parent)`
+- Child of `parent`.  
+- Manages adding/removing and editing doctor and member profiles.
+- Responsible for:  
+  - Manager Mode:  
+    - Create a new doctor profile  
+    - Create a new member profile  
+    - Edit a doctor profile  
+    - Edit a member profile  
+    - Remove an existing doctor profile  
+    - Remove an existing member profile  
+    - Change a member's status  
+
+### `services_manager(parent)`
+- Child of `parent`.  
+- Manages the services directory.  
+- Responsible for:  
+  - Manager Mode:  
+    - Add a service to the services directory  
+    - Remove a service from the services directory  
+  - Provider Mode:  
+    - View services directory  
+
+### `provider_services_logger(parent)`
+- Child of `parent`.  
+- Handles providers logging a member service.  
+- Responsible for:  
+  - Provider Mode:  
+    - Log a member service  
+
+### `menus_n_modes(parent)`
+- Child of `parent`.  
+- Manages high-level menu interactions and user choices.  
+- Responsible for displaying menus and calling the appropriate functions based on user input.  
+
 
 ## File Structure
 The system operates with specific file naming conventions:
-- `12345_name_doctor_profile.txt`: Doctor profile and log of services.
-- `12345_name_member_profile.txt`: Member profile and service history.
-- `12345_name_doctor_report.txt`: Doctor's weekly billing report.
-- `12345_name_member_report.txt`: Member's weekly billing report.
+- `123456789_doctor_name_profile.txt`: Doctor profile and log of services.
+- `123456789_member_name_profile.txt`: Member profile and service history.
+- `123456789_doctor_name_report_MM_DD_YYYY.txt`: An individual doctor's weekly billing report. (Needs better description), also possibly better naming conventions for the two 'report' files
+- `123456789_member_name_report_MM_DD_YYYY.txt`: An individual member's weekly billing report. (Needs better description)
+- `provider_summary_report_MM_DD_YYYY`: IDK (Needs better description)
+- `etf_report_MM_DD_YYYY.txt`: Summary of weekly payments due to all doctors.
 - `services.txt`: Lists all available services with codes and fees.
 

@@ -1,6 +1,9 @@
 #ignore all .txt files
-#*.txt
+*.txt
 
 #ignore the __pycache__ directory
 __pycache__/
+
+#ignore virtual environment folder
+venv/
 ruff.toml

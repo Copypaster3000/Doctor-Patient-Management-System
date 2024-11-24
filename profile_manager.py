@@ -29,9 +29,9 @@ class profile_manager(parent):
         state = ""
         zip = ""
         status = "valid\n" #the status for member's
-        notes = "none\n" #notes for member's status
+        notes = "no comments\n" #notes for member's status
 
-        print(f"You select to create a new {type} profile.")
+        print(f"You selected to create a new {type} profile.")
         #store id number entered from manager in id_num
         name = super().get_text(f"\nEnter the {type}'s full name: ")
         id_num = super().get_unused_id_num(type) #makes sure id is not already taken and is valid
@@ -172,6 +172,60 @@ class profile_manager(parent):
         else:
             super().display_lines_up_to(file_name, 6)
         
+
+
+    #allows editing a member's status
+    def edit_member_status(self):
+        print("\nEnter the ID number of the member whose profile you want to edit.")
+        id_num = super().get_9_digits()
+
+        file_name = super().file_exists(id_num, "member", "profile")
+
+        if file_name is None: #if there is not an existing profile with that ID number and type
+            print(f"There is no profile with that ID number.") #let user know
+            return #and return to manager menu
+
+        name = super().get_line_of_file(file_name, 0) #get the name of the profile considering being edited
+        status = super().get_line_of_file(file_name, 6)
+        #confirm the user wants to edit that persons profile
+        print(f"Profile for {id_num} found, member {name}.")
+        print("Profile statuses can only be changed between valid and invalid, choosing to edit will change the status to what is in not.")
+        print(f"\nAre you sure you want to change member {name}'s profile status is is currently {status}?")
+        print(f"1) Yes, change {name}'s profile status")
+        print(f"2) No, do not change {name}'s status")
+        choice = super().get_menu_choice(2)
+
+        if (choice == 1): #if the user selected to change the status
+            if (status == "valid"): new_status = "invalid"
+            else: new_status = "valid"
+
+            #change users status
+            super().overwrite_line_in_file(file_name, 6, new_status)
+            print(f"\n{name}'s status has been updated to {new_status}.")
+
+        #get status comments from file
+        comments = super().get_line_of_file(file_name, 7)
+        print(f"\nWould you like to edit the user's status comments? Current comments: '{comments}'.  ")
+        print("1) Replace comment with a new comment")
+        print("2) No not edit comment, go back to manager menu")
+        choice = super().get_menu_choice(2)
+
+        if (choice == 1): #if the user wants to edit the status comments
+            #get the replacement comment from the user
+            new_comment = super().get_text("\nEnter the new status comment: ")
+            super().overwrite_line_in_file(file_name, 7, new_comment)
+
+        print(f"\n{name}'s status and comments: ")
+        print(f"Status: {super().get_line_of_file(file_name, 6)}")
+        print(f"Comments: {super().get_line_of_file(file_name, 7)}")
+        
+        
+
+        
+
+
+
+
 
         
 

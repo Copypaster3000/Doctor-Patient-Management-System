@@ -1,5 +1,3 @@
-123456004_Bob_Brown_doctor_profile.txt
-
 Bob Brown
 123456004
 4 Elm Street
