@@ -10,7 +10,7 @@ import os
 
 # manages the service directory, which is stored as a single .txt file
 # allows for adding a new service, remove an existing service, and viewing the service directory
-class services_masnager(parent):
+class services_manager(parent):
 
     # initialize class and ensure the service directory text file exists, if not, create it
     def __init__(self):
@@ -29,7 +29,7 @@ class services_masnager(parent):
         
         
     # gets the 6 digit service code 
-    def get_6_digits(self) -> str:
+    def get_6_digits(self): 
         service_code = input("Enter 6 digit service code: ") # get user input
 
         # while the service code entered isnt 6 digits, reprompt
