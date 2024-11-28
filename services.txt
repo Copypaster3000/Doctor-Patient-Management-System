@@ -3,3 +3,19 @@ Aerobics Exercise Session,654002,30.00
 Yoga Therapy Session,654003,40.00
 Nutritional Guidance,654004,60.00
 Stress Management Workshop,654005,75.00
+Stress Management Workshop,654005,75.00
+Personal Training Session,654006,100.00
+Cardio Fitness Class,654007,25.00
+Weightlifting Basics,654008,35.00
+Meditation Workshop,654009,45.00
+Mental Health Counseling,654010,80.00
+Holistic Healing Therapy,654011,70.00
+Acupuncture Therapy,654012,85.00
+Sports Massage Session,654013,65.00
+Chiropractic Adjustment,654014,90.00
+Pediatric Nutritional Advice,654015,55.00
+Senior Wellness Program,654016,50.00
+Posture Correction Class,654017,40.00
+Healthy Cooking Workshop,654018,60.00
+Pilates Training Session,654019,45.00
+Therapeutic Swimming Session,654020,55.00
