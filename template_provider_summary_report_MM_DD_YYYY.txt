@@ -1,0 +1,93 @@
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Provider Name: <first and last>
+Provider ID: <9digits>
+Total number of consultations: <number>
+Total fee due: <total fee>
+
+Total number of Providers who billed this week: <number>
+Total number of consultations: <number>
+Total fee: <total fee>
