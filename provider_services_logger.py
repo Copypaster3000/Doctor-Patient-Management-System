@@ -12,7 +12,7 @@ from parent import parent
 from services_manager import services_manager
 
 
-class provider_service_logger(parent):
+class provider_services_logger(parent):
     def __init__(self) -> None:
         """Initialize a provider_service_logger.
 
@@ -20,7 +20,7 @@ class provider_service_logger(parent):
         """  # noqa: E501
         self.services_manager = services_manager()
 
-    def get_date(self) -> datetime:
+    def get_date(self) -> datetime: # TODO should we be logging time at all? If not, maybe we could get rid of tzlocal package.
         """Get user input for a date and confirm before returning."""
         choice = "N"
         form = "%m/%d/%y %H:%M"
@@ -29,31 +29,34 @@ class provider_service_logger(parent):
         while choice.capitalize() != "Y":
             date_input = input(
                 "Enter the time and date of the service (MM/DD/YY HH:MM format): "
-            )  # noqa: E501
+            )
             try:
                 parse = datetime.datetime.strptime(date_input + local_tz, form + "%z")
             except Exception as e:
                 print(f"Invalid date or time format: {e}")
                 continue  # Jump to the next iteration
             print(f"Entered: {parse}")
-            choice = input("(Y) to confirm, any other input to reject.")
+            choice = input("(Y) to confirm, any other input to re-input.")
         return parse
 
     def log_member_services(self) -> None:  # noqa: D102
-        print("Enter Provider Number:")
+        print("Enter Provider number:")
         provider_id = super().get_9_digits()
-        while not super().person_exists(
-            provider_id
-        ):  # We should verify provider first. How?
-            print("Provider ID not found.")
+        while not super().person_exists( 
+            provider_id,
+        ):
+            print("Invalid. Provider does not exist.")
             provider_id = super().get_9_digits()
-        print("Enter Member Number:")
+        print("Provider validated.\n")
+
+
+        print("Enter Member number:") # TODO add dheck for valid member status (if not valid, display "Member suspended.")  # noqa: E501
         member_id = super().get_9_digits()
         while not super().person_exists(member_id):
-            print("Member ID not found.")
+            print("Invalid. Member does not exist")
             member_id = super().get_9_digits()
 
-        current_datetime = datetime.datetime.now(tzlocal.get_local())
+        current_datetime = datetime.datetime.now(tzlocal.get_localzone())
 
         service_date = self.get_date()
 
@@ -61,6 +64,9 @@ class provider_service_logger(parent):
         while not self.services_manager.service_code_exists():
             print("Service code does not exist. Please enter a valid service code.")
             service_code = self.services_manager.get_service_code()
+
+        print("Service: ", self.services_manager.get_service_name_from_code(service_code)) #TODO allow user to reject/confirm code here?
+        # TODO also log service fee.
         comments = input(
             "(Optional) Enter any comments about the provided service, or leave blank: "
         )

@@ -204,3 +204,12 @@ class services_manager(parent):
                     return True # return true if the service code is already in use
                 
         return False # return false it the code is not in use
+    
+    # Get the name of a service corresponding to the code passed as argument.
+    def get_service_name_from_code(self, service_code): #TODO is iterating thru every line like this too computationally ridiculous?
+        with open(self.service_directory, 'r') as  file:
+            for line in file:
+                _, code, name = line.strip().split(',')
+                if code == service_code:
+                    return name # Return the service name
+        return None

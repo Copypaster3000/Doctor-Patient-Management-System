@@ -97,3 +97,9 @@ The system operates with specific file naming conventions:
 - `etf_report_MM_DD_YYYY.txt`: Summary of weekly payments due to all doctors.
 - `services.txt`: Lists all available services with codes and fees.
 
+
+# Install Python Requirements
+Use the following to install the required Python packages:
+```zsh
+python3 -m pip install -r requirements.txt
+```
