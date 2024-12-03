@@ -84,28 +84,28 @@ class provider_services_logger(parent):
         # self.add_service_to_provider(provider_id, service_record)
         # self.add_service_to_member(member_id, service_record)
 
-    def record_service_to_profiles(self, service_record: dict):
+    def record_service_to_profiles(self, service_record: dict):  #TODO fix issue with patient number verification.
         """
         Adds the service represented by `service_record` to the patient & provider associated.
         """
         if not super().person_exists(
-            service_record.provider_id
-        ) or not super().person_exists(service_record.member_id):
+            service_record['provider_id']
+        ) or not super().person_exists(service_record["member_id"]):
             raise NameError
         provider_file = super().file_exists(
-            self.service_record.provider_id, "doctor", "profile"
+            service_record["provider_id"], "doctor", "profile"
         )
         patient_file = super().file_exists(
-            service_record.member_id, "patient", "profile"
+            service_record["member_id"], "patient", "profile"
         )
         if provider_file is None:
             print(
-                f"There is no provider profile corresponding to provider ID: {service_record.provider_id}"
+                f"There is no provider profile corresponding to provider ID: {service_record["provider_id"]}"
             )
             return
         elif patient_file is None:
             print(
-                f"There is no patient profile corresponding to patient ID:{service_record.member_id}"
+                f"There is no patient profile corresponding to patient ID:{service_record["member_id"]}"
             )
             return
         else:  # Both ID's have matching profiles.
@@ -123,12 +123,12 @@ class provider_services_logger(parent):
         """Records a new service to the profile corresponding to profile_id. Preserves linebreak formatting."""
 
         record = f"""
-{service_record.timestamp}\n
-{service_record.service_date}\n
-{service_record.provider_id}\n
-{service_record.member_id}\n
-{service_record.service_code}\n
-{service_record.comments}\n
+{service_record["timestamp"]}\n
+{service_record["service_date"]}\n
+{service_record["provider_id"]}\n
+{service_record["member_id"]}\n
+{service_record["service_code"]}\n
+{service_record["comments"]}\n
 """
         with open(file_name, "rw") as f:
             contents = f.readlines()
