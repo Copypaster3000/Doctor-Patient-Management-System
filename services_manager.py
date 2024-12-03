@@ -205,11 +205,11 @@ class services_manager(parent):
                 
         return False # return false it the code is not in use
     
-    # Get the name of a service corresponding to the code passed as argument.
-    def get_service_name_from_code(self, service_code): #TODO is iterating thru every line like this too computationally ridiculous?
+    # Get the details of a service corresponding to the code passed as argument.
+    def get_service_info_from_code(self, service_code): #TODO is iterating thru every line like this too computationally ridiculous?
         with open(self.service_directory, 'r') as  file:
             for line in file:
-                _, code, name = line.strip().split(',')
+                (name,code, fee) = line.strip().split(',')
                 if code == service_code:
-                    return name # Return the service name
+                    return (name, fee) # Return the service name
         return None

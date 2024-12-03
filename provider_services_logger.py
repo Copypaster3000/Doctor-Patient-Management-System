@@ -6,8 +6,6 @@
 # TODO: define class or struct to contain patient_record data?
 import datetime
 
-import tzlocal
-
 from parent import parent
 from services_manager import services_manager
 
@@ -23,19 +21,19 @@ class provider_services_logger(parent):
     def get_date(self) -> datetime: # TODO should we be logging time at all? If not, maybe we could get rid of tzlocal package.
         """Get user input for a date and confirm before returning."""
         choice = "N"
-        form = "%m/%d/%y %H:%M"
-        local_tz = tzlocal.get_localzone()
+        form = "%m/%d/%y"
+        # local_tz = tzlocal.get_localzone()
 
         while choice.capitalize() != "Y":
             date_input = input(
-                "Enter the time and date of the service (MM/DD/YY HH:MM format): "
+                "Enter the time and date of the service (MM/DD/YY format): "
             )
             try:
-                parse = datetime.datetime.strptime(date_input + local_tz, form + "%z")
+                parse = datetime.datetime.strptime(date_input, form)
             except Exception as e:
                 print(f"Invalid date or time format: {e}")
                 continue  # Jump to the next iteration
-            print(f"Entered: {parse}")
+            print(f"Entered: {parse.strftime(form)}")
             choice = input("(Y) to confirm, any other input to re-input.")
         return parse
 
@@ -56,16 +54,17 @@ class provider_services_logger(parent):
             print("Invalid. Member does not exist")
             member_id = super().get_9_digits()
 
-        current_datetime = datetime.datetime.now(tzlocal.get_localzone())
+        current_datetime = datetime.datetime.now()
+        print("DEBUG: current_datetime: ", str(current_datetime))
 
         service_date = self.get_date()
 
-        service_code = self.services_manager.get_service_code()
-        while not self.services_manager.service_code_exists():
+        service_code = self.services_manager.get_6_digits()
+        while not self.services_manager.service_code_exists(service_code):
             print("Service code does not exist. Please enter a valid service code.")
-            service_code = self.services_manager.get_service_code()
-
-        print("Service: ", self.services_manager.get_service_name_from_code(service_code)) #TODO allow user to reject/confirm code here?
+            service_code = self.services_manager.get_6_digits()
+        (service_name, service_fee) =self.services_manager.get_service_info_from_code(service_code)
+        print(f"Service: {service_name}, Fee: {service_fee}") #TODO allow user to reject/confirm code here?  TODO or remove this print.
         # TODO also log service fee.
         comments = input(
             "(Optional) Enter any comments about the provided service, or leave blank: "
@@ -78,6 +77,7 @@ class provider_services_logger(parent):
             "provider_id": provider_id,
             "member_id": member_id,
             "service_code": service_code,
+            "service_fee": service_fee,
             "comments": comments,  # TODO Example patient profile seems to imply a cost of service is also logged? or some other sixth field?
         }
         self.record_service_to_profiles(service_record)
