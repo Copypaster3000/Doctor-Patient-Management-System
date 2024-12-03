@@ -74,7 +74,7 @@ class provider_service_logger(parent):
             "service_code": service_code,
             "comments": comments,  # TODO Example patient profile seems to imply a cost of service is also logged? or some other sixth field?
         }
-        self.add_service_to_profiles(service_record)
+        self.record_service_to_profiles(service_record)
         # self.add_service_to_provider(provider_id, service_record)
         # self.add_service_to_member(member_id, service_record)
 
