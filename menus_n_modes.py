@@ -68,7 +68,7 @@ class menus_n_modes(parent):
 
 
 
-        print("Exited Manager Mode\n") #notifies user they have exited manager mode
+        print("\nExited Manager Mode") #notifies user they have exited manager mode
 
 
     #displays provider menu and facilitate provider mode functionality 

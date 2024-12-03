@@ -13,7 +13,7 @@ class member_reports(parent):
     The report includes:
         - Name      - ID        - Address
         - Date of Service       - The Provider
-        - Service Name          - Sevice Code?
+        - Service Name          - Service Code?
     Args:    member_id (string): The ID of the corresponding member
     Returns: The generated report as a formatted string
     """
