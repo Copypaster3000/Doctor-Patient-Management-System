@@ -14,6 +14,7 @@
 #def get_name_by_id_num(self, id_number):#returns the name of a doctor based on their id number
 #def copy_and_rename_file(self, original_file, new_file_name):#copies and re-names a file
 #def insert_line_in_file(file_path, line_number, new_line):#Inserts a new line at a specific line number in a file without disrupting the rest of the file.
+#def add_labels(self, file_name):#adds labels to report file
 
 import shutil
 import os
@@ -102,7 +103,7 @@ class provider_reports(parent):
             #check if provider exists
         return
     
-    def add_labels(self, file_name):
+    def add_labels(self, file_name):#adds labels to report file
         #define labels to insert infront of data 
         name = "First and last name: "
         id_num = "ID number: "
@@ -113,7 +114,7 @@ class provider_reports(parent):
         member_num = "Member number: "
         service_code = "Service code: "
         fee = "Fee: "
-        commments = "Comments: "
+        comments = "Comments: "
         #get name from file and add it to string with label
         name = name + super().get_line_of_file(file_name, 0)
         #rewrite line in file with new string
@@ -132,14 +133,50 @@ class provider_reports(parent):
 
        #iterate through file adding labels to any services listed 
         try:
-            with open(file_path, 'r') as file:
-                lines = file.readlines()
             with open(file_name, 'r') as file:
                 for line_number, line in enumerate(file, start=1):  # start=1 makes line_number start from 1
-                    # starting at line 9 and every 8 lines after that
+
+                    # starting at line 8 and every 8 lines after that
+                    if line_number >= 8 and (line_number - 8) % 8 == 0:
+                        temp_date_and_time_service_was_recorded = date_and_time_service_was_recorded + super().get_line_of_file(file_name, line_number)
+                        super().overwrite_line_in_file(file_name, line_number, temp_date_and_time_service_was_recorded)
+                        #date_and_time_service_was_recorded = "Date and time service recorded: "#reset variable
+                    
+                    #starting at line 9 and every 8 lines after that
                     if line_number >= 9 and (line_number - 9) % 8 == 0:
-                        date_and_time_service_was_recorded = date_and_time_service_was_recorded + super().get_line_of_file(file_name, line_number)
-                        super().overwrite_line_in_file(file_name, line_number, date_and_time_service_was_recorded)
+                        temp_date_service_was_provided = date_service_was_provided + super().get_line_of_file(file_name, line_number)
+                        super().overwrite_line_in_file(file_name, line_number, temp_date_service_was_provided)
+                        #date_service_was_provided = "Date service was provided: "#reset variable
+
+                    #starting at line 10 and every 8 lines after that
+                    if line_number >= 10 and (line_number - 10) % 8 == 0:
+                        temp_provider_num = provider_num + super().get_line_of_file(file_name, line_number)
+                        super().overwrite_line_in_file(file_name, line_number, temp_provider_num)
+                        #provider_num = "Provider number: "#reset variable
+
+                    #starting at line 11 and every 8 lines after that
+                    if line_number >= 11 and (line_number - 11) % 8 == 0:
+                        temp_member_num = member_num + super().get_line_of_file(file_name, line_number)
+                        super().overwrite_line_in_file(file_name, line_number, temp_member_num)
+                        #member_num = "Member number: "#reset variable
+
+                    #starting at line 12 and every 8 lines after that
+                    if line_number >= 12 and (line_number - 12) % 8 == 0:
+                        temp_service_code = service_code + super().get_line_of_file(file_name, line_number)
+                        super().overwrite_line_in_file(file_name, line_number, temp_service_code)
+                        #service_code = "Service code: " #reset variable
+
+                    #starting at line 13 and every 8 lines after that
+                    if line_number >= 13 and (line_number - 13) % 8 == 0:
+                        temp_fee = fee + super().get_line_of_file(file_name, line_number)
+                        super().overwrite_line_in_file(file_name, line_number, temp_fee)
+                        #fee = "fee: " #reset variable
+
+                    #starting at line 14 and every 8 lines after that
+                    if line_number >= 14 and (line_number - 14) % 8 == 0:
+                        temp_comments = comments + super().get_line_of_file(file_name, line_number)
+                        super().overwrite_line_in_file(file_name, line_number, temp_comments)
+                        #comments = "Comments: "#reset variable
         except FileNotFoundError:
                 print(f"Error: File '{file_path}' not found.")
         except Exception as e:
