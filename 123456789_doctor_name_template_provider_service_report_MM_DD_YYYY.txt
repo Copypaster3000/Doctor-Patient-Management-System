@@ -1,6 +1,10 @@
 First and Last Name: <first and last name>
 ID number: <id number>
-adress: <street city state zipcode>
+adress: 
+<street>
+<city>
+<state>
+<zipcode>
 
 Date and time service recorded: <MM-DD-YYYY HH:MM:SS>
 Date service was provided: <MM-DD-YYYY>
