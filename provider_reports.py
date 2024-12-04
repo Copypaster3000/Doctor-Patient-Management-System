@@ -15,6 +15,8 @@ class provider_reports(parent):
     def __init__(self):
         self.doctor_files = self.get_doctor_files()
 
+
+
     def generate_provider_summary_report(): #high level menu option
         #get date range of the summary report from the user
         #find all doctor profiles will services logged in that range (probably a recursisve algorithim)
@@ -27,6 +29,7 @@ class provider_reports(parent):
         return
 
 
+
     def get_provider(self): #get a provider the user wants to generate a provider service report for, and validate user input
         return
 
@@ -34,6 +37,7 @@ class provider_reports(parent):
 
     def chronological_sort(self): #sort services in a file by chronological order by day the service was provided
         return
+
 
 
     #generates a weekly etf report from the last week
@@ -76,8 +80,6 @@ class provider_reports(parent):
         print("\nETF Report has been created: \n")
         if not super().display_file_contents(file_name): #prints generated etf report file
             print("Error: ETF report file not found.\n")
-
-        
 
 
 
@@ -123,14 +125,6 @@ class provider_reports(parent):
             print(f"An error occurred while processing {file_name}: {e}")
 
         return total_fees
-
-
-
-
-
-
-
-
 
 
     
