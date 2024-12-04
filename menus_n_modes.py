@@ -60,14 +60,14 @@ class menus_n_modes(parent):
             if (choice == 1): self.provider_reports.generate_provider_service_report() #NR
             if (choice == 2): self.member_reports.generate_member_report() #JO
             if (choice == 3): self.provider_reports.generate_provider_summary_report() #NR
-            if (choice == 4): self.provider_reports.generate_EFT_report() #NR
-            if (choice == 5): self.profile_edits.add_new_doctor_profile()
-            if (choice == 6): self.profile_edits.add_new_member_profile()
-            if (choice == 7): self.profile_edits.edit_doctor_profile()
-            if (choice == 8): self.profile_edits.edit_member_profile()
-            if (choice == 9): self.profile_edits.remove_doctor_profile()
-            if (choice == 10): self.profile_edits.remove_member_profile()
-            if (choice == 11): self.profile_edits.edit_member_status()
+            if (choice == 4): self.provider_reports.generate_EFT_report() #DW
+            if (choice == 5): self.profile_edits.add_new_doctor_profile() #DW
+            if (choice == 6): self.profile_edits.add_new_member_profile() #DW
+            if (choice == 7): self.profile_edits.edit_doctor_profile() #DW
+            if (choice == 8): self.profile_edits.edit_member_profile() #DW
+            if (choice == 9): self.profile_edits.remove_doctor_profile() #DW
+            if (choice == 10): self.profile_edits.remove_member_profile() #DW
+            if (choice == 11): self.profile_edits.edit_member_status() #DW
             if (choice == 12): self.services.add_service()
             if (choice == 13): self.services.remove_service()
 

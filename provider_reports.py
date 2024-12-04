@@ -28,10 +28,6 @@ from datetime import date
     #123456789_doctor_name_template_provider_service_report_MM_DD_YYYY.txt
 
 class provider_reports(parent):
-    def generate_provider_summary_report(self): #high level menu option
-         return
-
-
     def __init__(self):
         self.doctor_files = self.get_doctor_files()
 
@@ -43,7 +39,8 @@ class provider_reports(parent):
         #as services in that range are found, copy service and doctor information to local variables
         return
 
-        return
+
+
     def get_name_by_id_num(self, id_number):#returns the name of a doctor based on their id number
         # Get the current working directory
         current_directory = os.getcwd()
@@ -69,6 +66,8 @@ class provider_reports(parent):
             print("Error: Directory not found.")
             return False
     
+
+
     def generate_provider_service_report(self): #high level menu option
         #get provider from user
         print("please enter the ID number of the provider you wish to generate a service report for:")
@@ -98,6 +97,8 @@ class provider_reports(parent):
         self.copy_and_rename_file(old_file, new_file_name)
         self.add_labels(new_file_name)
 
+
+
     def copy_and_rename_file(self, original_file, new_file_name):#copies and re-names a file
         # Get the current working directory
         current_directory = os.getcwd()
@@ -116,6 +117,8 @@ class provider_reports(parent):
             print(f"An error occurred: {e}")
             #check if provider exists
         return
+
+
     
     def add_labels(self, file_name):#adds labels to report file
         #define labels to insert infront of data 
@@ -196,6 +199,8 @@ class provider_reports(parent):
         except Exception as e:
                 print(f"An error occurred: {e}")
 
+
+
     def insert_line_in_file(self, file_path, line_number, new_line):#Inserts a new line at a specific line number in a file without disrupting the rest of the file.
         try:
             # Open the file for reading and store its contents in a list
@@ -214,6 +219,8 @@ class provider_reports(parent):
          print(f"Error: File '{file_path}' not found.")
         except Exception as e:
             print(f"An error occurred: {e}")
+
+
 
     def generate_provider_service_report(self): #high level menu option
         return
