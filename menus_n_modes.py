@@ -7,6 +7,7 @@ from parent import parent
 from profile_manager import profile_manager
 from services_manager import services_manager
 from member_reports import member_reports as mp
+from provider_reports import provider_reports
 
 
 class menus_n_modes(parent):
@@ -16,6 +17,7 @@ class menus_n_modes(parent):
         self.profile_edits = profile_manager() #an instance of profile manager to use it's functions to manage profiles in the data base
         self.services = services_manager() # instance of services manager to use its functions to manager and view services in the data base
         self.member_reports = mp() #JO: an instance of member reports class to use its functions
+        self.provider_reports = provider_reports()# NR an instance of the provider reports class 
 
 
     #displays main menu and returns the user's menu choice
@@ -55,7 +57,10 @@ class menus_n_modes(parent):
             choice = self.parent_object.get_menu_choice(14) #get users menu choice
 
             #call appropriate function based on users menu choice
+            if (choice == 1): self.provider_reports.generate_provider_service_report() #NR
             if (choice == 2): self.member_reports.generate_member_report() #JO
+            if (choice == 3): self.provider_reports.generate_provider_summary_report() #NR
+            if (choice == 4): self.provider_reports.generate_EFT_report() #NR
             if (choice == 5): self.profile_edits.add_new_doctor_profile()
             if (choice == 6): self.profile_edits.add_new_member_profile()
             if (choice == 7): self.profile_edits.edit_doctor_profile()
