@@ -19,6 +19,7 @@ from datetime import date, datetime, timedelta
 from parent import parent
 import shutil
 import glob
+import sys
 import os
 
 #123456789_doctor_name_template_provider_service_report_MM_DD_YYYY.txt
@@ -61,7 +62,7 @@ class provider_reports(parent):
             # Return False if no file matches the id_number
             return False
         except FileNotFoundError:
-            print("Error: Directory not found.")
+            print("Error: Directory not found.", file=sys.stderr)
 
     def remove_outdated_services(self, file_name):
         service_date = None 
@@ -78,31 +79,33 @@ class provider_reports(parent):
                 #length = len(lines)
 
                 while index < len(lines): #while there are still services to check
-                    try:
-                        service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y %H:%M:%S")
-                    except ValueError: 
-                        print(f"{file_name}: Invalid date format on line {index + 1} found while generating Provider Service report. Skipping that service block.")
-                        index += 8
+                    if index + 8 <= len(lines):# Check if there are at least 8 lines starting from the current line. This prevents bugs that occur if there are extra \n at the end of the files
+                        try:
+                            service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y %H:%M:%S")
+                        except ValueError: 
+                            print(f"{file_name}: Invalid date format on line {index + 1} found while generating Provider Service report. Skipping that service block.", file=sys.stderr)
+                            index += 8
+                    else: break
 
                     if service_date < one_week_ago: #if the service is greater than a week old
                         try: 
                             #remove it
                             if index + 8 <= len(lines):# Check if there are at least 8 lines starting from the current line
                                 del lines[index:index + 8]
-                                #index = index - 8 #de-increment index to acount of the change in position after lines are removed
+
                         except FileNotFoundError:
-                            print(f"Error: File '{file_name}' not found.")
+                            print(f"Error: File '{file_name}' not found.", file=sys.stderr)
                         except Exception as e:
-                            print(f"An error occurred: {e}")
+                            print(f"An error occurred: {e}", file=sys.stderr)
                     else:
                         index += 8
             with open(file_name, 'w') as file:# Write the modified lines back to the file
              file.writelines(lines)
 
         except FileNotFoundError:
-            print(f"File {file_name} not found wile trying to generate provider service report.")
+            print(f"File {file_name} not found wile trying to generate provider service report.", file=sys.stderr)
         except Exception as e:
-            print(f"An error occurred while processing {file_name}: {e}")
+            print(f"An error occurred while processing {file_name}: {e}", file=sys.stderr)
 
         return
     
@@ -121,7 +124,7 @@ class provider_reports(parent):
             print("2) return to menu")
             choice = super().get_menu_choice(2)
             if(choice == 1):
-                print("please enter the ID number of the provider you wish to generate a service report for:")
+                print("please enter the ID number of the provider you wish to generate a service report for")
                 id_num = super().get_9_digits()
             if(choice == 2):
                 return
@@ -142,7 +145,8 @@ class provider_reports(parent):
 
         self.add_labels(new_file_name)#inserts labels for all data members for readability
 
-        #weekly_fee = self.calc_weekly_fees(old_file)#calculates weekly fee
+        weekly_fee = self.calc_weekly_fees(old_file)#calculates weekly fee
+        print(weekly_fee)
         '''try:
             lines = []
             with open(new_file_name, 'r') as file:
@@ -172,9 +176,9 @@ class provider_reports(parent):
             #print(f"File copied and renamed to: {new_file_name}")
             return new_file_path
         except FileNotFoundError:
-            print(f"Error: {original_file} not found.")
+            print(f"Error: {original_file} not found.", file=sys.stderr)
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f"An error occurred: {e}", file=sys.stderr)
         return
 
 
@@ -216,49 +220,50 @@ class provider_reports(parent):
 
                     # starting at line 8 and every 8 lines after that
                     if line_number >= 8 and (line_number - 8) % 8 == 0:
-                        temp_date_and_time_service_was_recorded = date_and_time_service_was_recorded + super().get_line_of_file(file_name, line_number)
-                        super().overwrite_line_in_file(file_name, line_number, temp_date_and_time_service_was_recorded)
-                        #date_and_time_service_was_recorded = "Date and time service recorded: "#reset variable
+                        if(super().get_line_of_file(file_name, line_number) != ''):
+                            temp_date_and_time_service_was_recorded = date_and_time_service_was_recorded + super().get_line_of_file(file_name, line_number)
+                            super().overwrite_line_in_file(file_name, line_number, temp_date_and_time_service_was_recorded)
                     
                     #starting at line 9 and every 8 lines after that
                     if line_number >= 9 and (line_number - 9) % 8 == 0:
-                        temp_date_service_was_provided = date_service_was_provided + super().get_line_of_file(file_name, line_number)
-                        super().overwrite_line_in_file(file_name, line_number, temp_date_service_was_provided)
-                        #date_service_was_provided = "Date service was provided: "#reset variable
+                        if(super().get_line_of_file(file_name, line_number) != ''):
+                            temp_date_service_was_provided = date_service_was_provided + super().get_line_of_file(file_name, line_number)
+                            super().overwrite_line_in_file(file_name, line_number, temp_date_service_was_provided)
 
                     #starting at line 10 and every 8 lines after that
                     if line_number >= 10 and (line_number - 10) % 8 == 0:
-                        temp_provider_num = provider_num + super().get_line_of_file(file_name, line_number)
-                        super().overwrite_line_in_file(file_name, line_number, temp_provider_num)
-                        #provider_num = "Provider number: "#reset variable
+                        if(super().get_line_of_file(file_name, line_number) != ''):
+                            temp_provider_num = provider_num + super().get_line_of_file(file_name, line_number)
+                            super().overwrite_line_in_file(file_name, line_number, temp_provider_num)
 
                     #starting at line 11 and every 8 lines after that
                     if line_number >= 11 and (line_number - 11) % 8 == 0:
-                        temp_member_num = member_num + super().get_line_of_file(file_name, line_number)
-                        super().overwrite_line_in_file(file_name, line_number, temp_member_num)
-                        #member_num = "Member number: "#reset variable
+                        if(super().get_line_of_file(file_name, line_number) != ''):
+                            temp_member_num = member_num + super().get_line_of_file(file_name, line_number)
+                            super().overwrite_line_in_file(file_name, line_number, temp_member_num)
 
                     #starting at line 12 and every 8 lines after that
                     if line_number >= 12 and (line_number - 12) % 8 == 0:
-                        temp_service_code = service_code + super().get_line_of_file(file_name, line_number)
-                        super().overwrite_line_in_file(file_name, line_number, temp_service_code)
-                        #service_code = "Service code: " #reset variable
+                        if(super().get_line_of_file(file_name, line_number) != ''):
+                            temp_service_code = service_code + super().get_line_of_file(file_name, line_number)
+                            super().overwrite_line_in_file(file_name, line_number, temp_service_code)
 
                     #starting at line 13 and every 8 lines after that
                     if line_number >= 13 and (line_number - 13) % 8 == 0:
-                        temp_fee = fee + super().get_line_of_file(file_name, line_number)
-                        super().overwrite_line_in_file(file_name, line_number, temp_fee)
-                        #fee = "fee: " #reset variable
+                        if(super().get_line_of_file(file_name, line_number) != ''):
+                            temp_fee = fee + super().get_line_of_file(file_name, line_number)
+                            super().overwrite_line_in_file(file_name, line_number, temp_fee)
 
                     #starting at line 14 and every 8 lines after that
                     if line_number >= 14 and (line_number - 14) % 8 == 0:
-                        temp_comments = comments + super().get_line_of_file(file_name, line_number)
-                        super().overwrite_line_in_file(file_name, line_number, temp_comments)
-                        #comments = "Comments: "#reset variable
+                        if(super().get_line_of_file(file_name, line_number) != ''):
+                            temp_comments = comments + super().get_line_of_file(file_name, line_number)
+                            super().overwrite_line_in_file(file_name, line_number, temp_comments)
+
         except FileNotFoundError:
-                print(f"Error: File '{file_path}' not found.")
+                print(f"Error: File '{file_path}' not found.", file=sys.stderr)
         except Exception as e:
-                print(f"An error occurred: {e}")
+                print(f"An error occurred: {e}", file=sys.stderr)
 
 
 
@@ -278,9 +283,9 @@ class provider_reports(parent):
                 return True
         #print(f"Line inserted at position {line_number} successfully.")
         except FileNotFoundError:
-         print(f"Error: File '{file_path}' not found.")
+         print(f"Error: File '{file_path}' not found.", file=sys.stderr)
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f"An error occurred: {e}", file=sys.stderr)
 
 
 
