@@ -19,6 +19,7 @@ class member_reports(parent):
     """
     def generate_member_report(self):
         #Step 1: Prompt for member ID
+        print()
         member_id = self.get_9_digits()  #Ensures the user enters a valid 9-digit member ID
 
         #Step 2: Validate member profile
@@ -131,6 +132,7 @@ class member_reports(parent):
         with open(report_file, 'w') as file:
             file.write('\n'.join(report))
 
+        print()
         print(f"Report successfully generated and saved to {report_file}.")
 
         #Step 7: Ask user if they want to print the report
