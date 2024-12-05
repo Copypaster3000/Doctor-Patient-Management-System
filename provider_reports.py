@@ -15,23 +15,15 @@
 #def copy_and_rename_file(self, original_file, new_file_name):#copies and re-names a file
 #def insert_line_in_file(file_path, line_number, new_line):#Inserts a new line at a specific line number in a file without disrupting the rest of the file.
 #def add_labels(self, file_name):#adds labels to report file
-import glob
-
+from datetime import date, datetime, timedelta
 from parent import parent
-from datetime import datetime, timedelta
-
 import shutil
+import glob
 import os
-from parent import parent
-from datetime import date
 
-    #123456789_doctor_name_template_provider_service_report_MM_DD_YYYY.txt
+#123456789_doctor_name_template_provider_service_report_MM_DD_YYYY.txt
 
 class provider_reports(parent):
-    def generate_provider_summary_report(self): #high level menu option
-         return
-
-
     def __init__(self):
         self.doctor_files = self.get_doctor_files()
 
@@ -42,8 +34,9 @@ class provider_reports(parent):
         #find all doctor profiles will services logged in that range (probably a recursisve algorithim)
         #as services in that range are found, copy service and doctor information to local variables
         return
+    
 
-        return
+
     def get_name_by_id_num(self, id_number):#returns the name of a doctor based on their id number
         # Get the current working directory
         current_directory = os.getcwd()
@@ -67,7 +60,51 @@ class provider_reports(parent):
             return False
         except FileNotFoundError:
             print("Error: Directory not found.")
-            return False
+
+    def remove_outdated_services(self, file_name):
+        service_date = None 
+        one_week_ago = datetime.now() - timedelta(days=7) #calculate the date one week ago
+        try:
+            lines = []
+            with open(file_name, 'r') as file:
+                lines = file.readlines()
+
+                if len(lines) <= 7: return #if there arn't more than 7 lines in the file then there are not services so nothing to delete
+
+                #start processing from line 8
+                index = 7 
+                #length = len(lines)
+
+                while index < len(lines): #while there are still services to check
+                    try:
+                        service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y %H:%M:%S")
+                    except ValueError: 
+                        print(f"{file_name}: Invalid date format on line {index + 1} found while generating Provider Service report. Skipping that service block.")
+                        index += 8
+
+                    if service_date < one_week_ago: #if the service is greater than a week old
+                        try: 
+                            #remove it
+                            if index + 8 <= len(lines):# Check if there are at least 8 lines starting from the current line
+                                del lines[index:index + 8]
+                                #index = index - 8 #de-increment index to acount of the change in position after lines are removed
+                        except FileNotFoundError:
+                            print(f"Error: File '{file_name}' not found.")
+                        except Exception as e:
+                            print(f"An error occurred: {e}")
+                    else:
+                        index += 8
+            with open(file_name, 'w') as file:# Write the modified lines back to the file
+             file.writelines(lines)
+
+        except FileNotFoundError:
+            print(f"File {file_name} not found wile trying to generate provider service report.")
+        except Exception as e:
+            print(f"An error occurred while processing {file_name}: {e}")
+
+        return
+    
+
     
     def generate_provider_service_report(self): #high level menu option
         #get provider from user
@@ -96,7 +133,12 @@ class provider_reports(parent):
         old_file = super().file_exists(id_num, "doctor", "profile")
         #copy doctor profile and rename it as a report
         self.copy_and_rename_file(old_file, new_file_name)
+        
+        self.remove_outdated_services(new_file_name)
+
         self.add_labels(new_file_name)
+
+
 
     def copy_and_rename_file(self, original_file, new_file_name):#copies and re-names a file
         # Get the current working directory
@@ -117,6 +159,8 @@ class provider_reports(parent):
             #check if provider exists
         return
     
+
+
     def add_labels(self, file_name):#adds labels to report file
         #define labels to insert infront of data 
         name = "First and last name: "
@@ -196,6 +240,9 @@ class provider_reports(parent):
         except Exception as e:
                 print(f"An error occurred: {e}")
 
+
+
+
     def insert_line_in_file(self, file_path, line_number, new_line):#Inserts a new line at a specific line number in a file without disrupting the rest of the file.
         try:
             # Open the file for reading and store its contents in a list
@@ -214,9 +261,6 @@ class provider_reports(parent):
          print(f"Error: File '{file_path}' not found.")
         except Exception as e:
             print(f"An error occurred: {e}")
-
-    def generate_provider_service_report(self): #high level menu option
-        return
 
 
 
