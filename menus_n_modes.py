@@ -8,6 +8,7 @@ from profile_manager import profile_manager
 from services_manager import services_manager
 from member_reports import member_reports as mp
 from provider_reports import provider_reports
+from provider_services_logger import provider_services_logger
 
 
 class menus_n_modes(parent):
@@ -18,6 +19,7 @@ class menus_n_modes(parent):
         self.services = services_manager() # instance of services manager to use its functions to manager and view services in the data base
         self.member_reports = mp() #JO: an instance of member reports class to use its functions
         self.provider_reports = provider_reports()# NR an instance of the provider reports class 
+        self.service_logger = provider_services_logger()
 
 
     #displays main menu and returns the user's menu choice
@@ -89,6 +91,7 @@ class menus_n_modes(parent):
             print("3) Exit provider mode")
             choice = self.parent_object.get_menu_choice(3) #gets user's menu choice
             
+            if (choice == 1): self.service_logger.log_member_services()
             if (choice == 2): self.services.view_service_directory()
 
         print("Exited Provider Mode\n") #notifies user they have exited provider mode
