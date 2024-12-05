@@ -40,7 +40,7 @@ class menus_n_modes(parent):
 
         #while the user hasn't chosen to exit manager mode
         while (choice != 14):
-            print("\nManger Mode")
+            print("\nManager Mode")
             print("Select an option form the menu:")
             print("1) Generate a doctor's weekly services report")
             print("2) Generate a member's weekly services report")
