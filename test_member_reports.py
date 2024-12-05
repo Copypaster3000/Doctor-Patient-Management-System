@@ -79,29 +79,29 @@ class TestMemberReports(unittest.TestCase):
     @patch('builtins.open')
     @patch('os.path.exists')
     def test_generate_member_report(self, mock_exists, mock_open_func):
-        # Mock the os.path.exists() method to always return True
+        #Mock the os.path.exists() method to always return True
         mock_exists.return_value = True
 
-        # Mock the open() function
+        #Mock the open() function
         m = mock_open(read_data=member_profile_content)
         mock_open_func.side_effect = [m.return_value, m.return_value]
 
-        # Instantiate the member_reports class
+        #Instantiate the member_reports class
         member_reports_instance = member_reports()
         member_reports_instance.get_9_digits = MagicMock(return_value='279562441')
         member_reports_instance.get_menu_choice = MagicMock(return_value=2)
         member_reports_instance.file_exists = MagicMock(return_value='279562441_profile.txt')
         member_reports_instance.print_member_report = MagicMock()
 
-        # Run the generate_member_report method
+        #Run the generate_member_report method
         with patch('member_reports.datetime') as mock_datetime:
-            # Mock datetime to control the current date
+            #Mock datetime to control the current date
             mock_datetime.now.return_value = datetime(2024, 12, 3)
             mock_datetime.strptime.side_effect = lambda *args, **kwargs: datetime.strptime(*args, **kwargs)
 
             report = member_reports_instance.generate_member_report()
 
-        # Assertions to check if the report contains expected content
+        #Assertions to check if the report contains expected content
         self.assertIn('Weekly Service Report for Rose Martinez', report)
         self.assertIn('Member ID: 279562441', report)
         self.assertIn('Services Received (Last 7 Days):', report)
@@ -110,43 +110,43 @@ class TestMemberReports(unittest.TestCase):
         self.assertIn('Fee: $60.00', report)
         self.assertNotIn('No services received in the last week.', report)
 
-        # Verify that the report file was written with the correct name
+        #Verify that the report file was written with the correct name
         expected_date_str = datetime(2024, 12, 3).strftime("%m_%d_%Y")
         expected_filename = f"279562441_Rose_Martinez_report_{expected_date_str}.txt"
         mock_open_func.assert_any_call(expected_filename, 'w')
 
-        # Verify that print_member_report was called with the correct filename
+        #Verify that print_member_report was called with the correct filename
         member_reports_instance.print_member_report.assert_called_with(expected_filename)
 
     @patch('builtins.open')
     @patch('os.path.exists')
     def test_generate_member_report_no_services(self, mock_exists, mock_open_func):
-        # Mock the os.path.exists() method to always return True
+        #Mock the os.path.exists() method to always return True
         mock_exists.return_value = True
 
-        # Modify the member_profile_content to have no recent services
+        #Modify the member_profile_content to have no recent services
         member_profile_no_services = member_profile_content.replace('11-27-2024 21:38:22', '11-20-2024 21:38:22')
 
-        # Mock the open() function
+        #Mock the open() function
         m = mock_open(read_data=member_profile_no_services)
         mock_open_func.side_effect = [m.return_value, m.return_value]
 
-        # Instantiate the member_reports class
+        #Instantiate the member_reports class
         member_reports_instance = member_reports()
         member_reports_instance.get_9_digits = MagicMock(return_value='279562441')
         member_reports_instance.get_menu_choice = MagicMock(return_value=2)
         member_reports_instance.file_exists = MagicMock(return_value='279562441_profile.txt')
         member_reports_instance.print_member_report = MagicMock()
 
-        # Run the generate_member_report method
+        #Run the generate_member_report method
         with patch('member_reports.datetime') as mock_datetime:
-            # Mock datetime to control the current date
+            #Mock datetime to control the current date
             mock_datetime.now.return_value = datetime(2024, 12, 3)
             mock_datetime.strptime.side_effect = lambda *args, **kwargs: datetime.strptime(*args, **kwargs)
 
             report = member_reports_instance.generate_member_report()
 
-        # Assertions to check if the report contains expected content
+        #Assertions to check if the report contains expected content
         self.assertIn('Weekly Service Report for Rose Martinez', report)
         self.assertIn('Member ID: 279562441', report)
         self.assertIn('Services Received (Last 7 Days):', report)
@@ -156,29 +156,29 @@ class TestMemberReports(unittest.TestCase):
     @patch('builtins.open')
     @patch('os.path.exists')
     def test_generate_member_report_invalid_member_id(self, mock_exists, mock_open_func):
-        # Mock the os.path.exists() method to return False (profile does not exist)
+        #Mock the os.path.exists() method to return False (profile does not exist)
         mock_exists.return_value = False
 
-        # Mock the open() function (it shouldn't be called in this test)
+        #Mock the open() function (it shouldn't be called in this test)
         m = mock_open(read_data='')
         mock_open_func.side_effect = [m.return_value, m.return_value]
 
-        # Instantiate the member_reports class
+        #Instantiate the member_reports class
         member_reports_instance = member_reports()
-        member_reports_instance.get_9_digits = MagicMock(return_value='000000000')  # Invalid member ID
+        member_reports_instance.get_9_digits = MagicMock(return_value='000000000')  #Invalid member ID
         member_reports_instance.get_menu_choice = MagicMock(return_value=2)
-        member_reports_instance.file_exists = MagicMock(return_value=None)  # Simulate file not found
+        member_reports_instance.file_exists = MagicMock(return_value=None)  #Simulate file not found
         member_reports_instance.print_member_report = MagicMock()
 
-        # Capture the output to verify error message
+        #Capture the output to verify error message
         with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
             report = member_reports_instance.generate_member_report()
             output = mock_stdout.getvalue()
 
-        # Assertions to check that the report is None and error message is printed
+        #Assertions to check that the report is None and error message is printed
         self.assertIsNone(report)
         self.assertIn('Error: Member ID 000000000 not found.', output)
-        # Ensure that print_member_report was not called
+        #Ensure that print_member_report was not called
         member_reports_instance.print_member_report.assert_not_called()
 
 if __name__ == '__main__':
