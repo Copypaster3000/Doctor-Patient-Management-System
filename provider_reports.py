@@ -131,12 +131,25 @@ class provider_reports(parent):
         new_file_name = f"{id_num}_{name}_provider_service_report_{formatted_date}.txt" #creates text file name
         #use file_exisits to get the path to the current doctor profile
         old_file = super().file_exists(id_num, "doctor", "profile")
-        #copy doctor profile and rename it as a report
-        self.copy_and_rename_file(old_file, new_file_name)
-        
-        self.remove_outdated_services(new_file_name)
 
-        self.add_labels(new_file_name)
+        self.copy_and_rename_file(old_file, new_file_name)#copy doctor profile and rename it as a report
+        
+        self.remove_outdated_services(new_file_name)#removes services outside of one week range
+
+        self.add_labels(new_file_name)#inserts labels for all data members for readability
+
+        #weekly_fee = self.calc_weekly_fees(old_file)#calculates weekly fee
+        '''try:
+            lines = []
+            with open(new_file_name, 'r') as file:
+                lines = file.readlines()
+        except FileNotFoundError:
+            print(f"File {new_file_name} not found wile trying to generate provider service report.")
+        except Exception as e:
+            print(f"An error occurred while processing {new_file_name}: {e}")
+
+        self.insert_line_in_file(self, new_file_name, line_number, new_line):'''
+
 
 
 
@@ -150,13 +163,12 @@ class provider_reports(parent):
         try:
             # Copy the original file and rename it
             shutil.copy(original_path, new_file_path)
-            print(f"File copied and renamed to: {new_file_name}")
+            #print(f"File copied and renamed to: {new_file_name}")
             return new_file_path
         except FileNotFoundError:
             print(f"Error: {original_file} not found.")
         except Exception as e:
             print(f"An error occurred: {e}")
-            #check if provider exists
         return
     
 
@@ -264,16 +276,6 @@ class provider_reports(parent):
 
 
 
-    def get_provider(self): #get a provider the user wants to generate a provider service report for, and validate user input
-        return
-
-
-
-    def chronological_sort(self): #sort services in a file by chronological order by day the service was provided
-        return
-
-
-
     #generates a weekly etf report from the last week
     def generate_EFT_report(self): #high level menu option
         doctor_name = ""
@@ -329,13 +331,14 @@ class provider_reports(parent):
 
                 if len(lines) <= 7: return 0.0 #if there arn't more than 7 lines in the file then there are not services so return $0
 
-                #start processing from line 9
-                index = 8 #line 8 is the 8th index (0-based)
+                #start processing from line 8
+                index = 7 #line 8 is the 8th index (0-based)
 
                 while index < len(lines): #while there are still services to check 
                     #get the date
                     try:
-                        service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y")
+                        #service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y")
+                        service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y %H:%M:%S")
                     except ValueError: #handle errors from try block
                         print(f"{file_name}: Invalid date format on line {index + 1} found while generating ETF report. Skipping that service block.")
                         index += 8
@@ -344,7 +347,7 @@ class provider_reports(parent):
                     if service_date >= one_week_ago: #if the service is less than a week old
                         try: 
                             #get the fee from that service
-                            fee = float(lines[index + 4].strip())
+                            fee = float(lines[index + 5].strip())
                             total_fees += fee #add that services fee to the total fees
                         except ValueError: #handle errors from try block
                             print(f"{file_name}: Invalid fee format on line {index + 5}. Skipping block.")
