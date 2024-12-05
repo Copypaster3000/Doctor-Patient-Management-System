@@ -3,7 +3,6 @@
 # This file holds the provider_services_logger class. This class handles logging a service provided by a doctor to a member.
 # This functionality is available in Provider Mode.
 
-# TODO: define class or struct to contain patient_record data?
 import datetime
 
 from parent import parent
@@ -18,7 +17,21 @@ class provider_services_logger(parent):
         """  # noqa: E501
         self.services_manager = services_manager()
 
-    def get_date(self) -> datetime: # TODO should we be logging time at all? If not, maybe we could get rid of tzlocal package.
+    def check_member_status(self, member_id):
+        if not super().person_exists(member_id):
+            raise ValueError("Cannot check status of non-existent member.")
+
+        file_name = super().file_exists(member_id, "member", "profile")
+        if file_name is None:
+            print(f"There is no member profile with that ID number.")
+        else:
+            status = super().get_line_of_file(file_name, 6)
+            print(f"Member status: {status}")
+            return status
+
+    def get_date(
+        self,
+    ) -> datetime:
         """Get user input for a date and confirm before returning."""
         choice = "N"
         form = "%m/%d/%y"
@@ -40,19 +53,23 @@ class provider_services_logger(parent):
     def log_member_services(self) -> None:  # noqa: D102
         print("Enter Provider number:")
         provider_id = super().get_9_digits()
-        while not super().person_exists( 
+        while not super().person_exists(
             provider_id,
         ):
             print("Invalid. Provider does not exist.")
             provider_id = super().get_9_digits()
         print("Provider validated.\n")
 
-
-        print("Enter Member number:") # TODO add dheck for valid member status (if not valid, display "Member suspended.")  # noqa: E501
+        print("Enter Member number:")
         member_id = super().get_9_digits()
         while not super().person_exists(member_id):
             print("Invalid. Member does not exist")
             member_id = super().get_9_digits()
+        member_status = self.check_member_status(member_id)
+        if member_status != "valid":
+            print("Member suspended.")
+            return
+        print("Patient validated.")
 
         current_datetime = datetime.datetime.now()
         print("DEBUG: current_datetime: ", str(current_datetime))
@@ -63,8 +80,12 @@ class provider_services_logger(parent):
         while not self.services_manager.service_code_exists(service_code):
             print("Service code does not exist. Please enter a valid service code.")
             service_code = self.services_manager.get_6_digits()
-        (service_name, service_fee) =self.services_manager.get_service_info_from_code(service_code)
-        print(f"Service: {service_name}, Fee: {service_fee}") #TODO allow user to reject/confirm code here?  TODO or remove this print.
+        (service_name, service_fee) = self.services_manager.get_service_info_from_code(
+            service_code
+        )
+        print(
+            f"Service: {service_name}, Fee: {service_fee}"
+        )  # TODO allow user to reject/confirm code here?  TODO or remove this print.
         # TODO also log service fee.
         comments = input(
             "(Optional) Enter any comments about the provided service, or leave blank: "
@@ -84,19 +105,22 @@ class provider_services_logger(parent):
         # self.add_service_to_provider(provider_id, service_record)
         # self.add_service_to_member(member_id, service_record)
 
-    def record_service_to_profiles(self, service_record: dict):  #TODO fix issue with patient number verification.
+    def record_service_to_profiles(
+        self, service_record: dict
+    ):  # TODO fix issue with patient number verification.
         """
         Adds the service represented by `service_record` to the patient & provider associated.
         """
         if not super().person_exists(
-            service_record['provider_id']
+            service_record["provider_id"]
         ) or not super().person_exists(service_record["member_id"]):
             raise NameError
+
         provider_file = super().file_exists(
             service_record["provider_id"], "doctor", "profile"
         )
         patient_file = super().file_exists(
-            service_record["member_id"], "patient", "profile"
+            service_record["member_id"], "member", "profile"
         )
         if provider_file is None:
             print(
@@ -123,15 +147,19 @@ class provider_services_logger(parent):
         """Records a new service to the profile corresponding to profile_id. Preserves linebreak formatting."""
 
         record = f"""
-{service_record["timestamp"]}\n
-{service_record["service_date"]}\n
-{service_record["provider_id"]}\n
-{service_record["member_id"]}\n
-{service_record["service_code"]}\n
-{service_record["comments"]}\n
+{service_record["timestamp"]}
+{service_record["service_date"]}
+{service_record["provider_id"]}
+{service_record["member_id"]}
+{service_record["service_code"]}
+{service_record["service_fee"]}
+{service_record["comments"]}
 """
-        with open(file_name, "rw") as f:
+        contents = []
+        with open(file_name, "r") as f:
             contents = f.readlines()
-            contents.insert(8, record)  # Add record at eigth line.
+
+        with open(file_name, "w") as f:
+            contents.insert(9, record)  # Add record at eigth line.
             res = "".join(contents)
             f.write(res)
