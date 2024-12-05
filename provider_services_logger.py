@@ -124,12 +124,12 @@ class provider_services_logger(parent):
         )
         if provider_file is None:
             print(
-                f"There is no provider profile corresponding to provider ID: {service_record["provider_id"]}"
+                f"There is no provider profile corresponding to provider ID: {service_record['provider_id']}"
             )
             return
         elif patient_file is None:
             print(
-                f"There is no patient profile corresponding to patient ID:{service_record["member_id"]}"
+                f"There is no patient profile corresponding to patient ID:{service_record['member_id']}"
             )
             return
         else:  # Both ID's have matching profiles.
