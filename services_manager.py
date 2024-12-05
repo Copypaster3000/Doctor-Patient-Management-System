@@ -204,3 +204,12 @@ class services_manager(parent):
                     return True # return true if the service code is already in use
                 
         return False # return false it the code is not in use
+
+    # Get the details of a service corresponding to the code passed as argument.
+    def get_service_from_code(self, service_code):
+        with open(self.service_directory, 'r') as file:
+            for line in file:
+                (name, code, fee) = line.strip().split(',')
+                if code == service_code:
+                    return (name,fee)
+        return None
