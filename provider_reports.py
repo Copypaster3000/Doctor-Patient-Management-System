@@ -143,23 +143,46 @@ class provider_reports(parent):
         
         self.remove_outdated_services(new_file_name)#removes services outside of one week range
 
-        self.add_labels(new_file_name)#inserts labels for all data members for readability
+        temp_service_count = self.add_labels(new_file_name)#inserts labels for all data members for readability and returns a count of the number of services
+        service_count = "Total number of consultations: " + str(temp_service_count)#formatts string for insertion at the end of file
 
-        weekly_fee = self.calc_weekly_fees(old_file)#calculates weekly fee
-        print(weekly_fee)
-        '''try:
+        temp_weekly_fee = self.calc_weekly_fees(old_file)#calculates weekly fee
+        weekly_fee = "Total fee for all consulations: " + str(temp_weekly_fee)#formatts string for insertion at the end of file
+
+        try:
             lines = []
             with open(new_file_name, 'r') as file:
                 lines = file.readlines()
+                legnth = len(lines)
+
+                lines.insert(legnth - 1, service_count + '\n')
+                lines.insert(legnth - 1, weekly_fee + '\n')
+
+            # Write the modified contents back to the file
+            with open(new_file_name, 'w') as file:
+                file.writelines(lines)
         except FileNotFoundError:
             print(f"File {new_file_name} not found wile trying to generate provider service report.")
         except Exception as e:
             print(f"An error occurred while processing {new_file_name}: {e}")
+        
+        self.print_report(new_file_name)
 
-        self.insert_line_in_file(self, new_file_name, line_number, new_line):'''
 
 
-
+    def print_report(self, report_file):
+         print(f"Would you like to print the report now?\n1) Yes\n2) No")
+         choice = self.get_menu_choice(2)  #1 for yes 2 for no from parent class
+         if choice == 1:
+             try:
+                 with open(report_file, 'r') as file:
+                     print("\n--- Report Start ---\n")
+                     print(file.read())
+                     print("\n--- End of Report ---\n")
+             except FileNotFoundError:
+                 print(f"Error: Report file '{report_file}' not found.")
+         else:
+             print("Report was not printed.")
 
 
 
@@ -185,7 +208,7 @@ class provider_reports(parent):
     
 
 
-    def add_labels(self, file_name):#adds labels to report file
+    def add_labels(self, file_name):#adds labels to report file and returns the number of services
         #define labels to insert infront of data 
         name = "First and last name: "
         id_num = "ID number: "
@@ -197,6 +220,7 @@ class provider_reports(parent):
         service_code = "Service code: "
         fee = "Fee: "
         comments = "Comments: "
+        service_count = 0
         #get name from file and add it to string with label
         name = name + super().get_line_of_file(file_name, 0)
         #rewrite line in file with new string
@@ -221,6 +245,7 @@ class provider_reports(parent):
                     # starting at line 8 and every 8 lines after that
                     if line_number >= 8 and (line_number - 8) % 8 == 0:
                         if(super().get_line_of_file(file_name, line_number) != ''):
+                            service_count += 1
                             temp_date_and_time_service_was_recorded = date_and_time_service_was_recorded + super().get_line_of_file(file_name, line_number)
                             super().overwrite_line_in_file(file_name, line_number, temp_date_and_time_service_was_recorded)
                     
@@ -264,6 +289,7 @@ class provider_reports(parent):
                 print(f"Error: File '{file_path}' not found.", file=sys.stderr)
         except Exception as e:
                 print(f"An error occurred: {e}", file=sys.stderr)
+        return service_count
 
 
 
