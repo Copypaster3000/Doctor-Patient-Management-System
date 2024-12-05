@@ -25,7 +25,7 @@ class provider_services_logger(parent):
         if file_name is None:
             print(f"There is no member profile with that ID number.")
         else:
-            status = super().get_line_of_file(file_name, 5)
+            status = super().get_line_of_file(file_name, 6)
             print(f"Member status: {status}")
             return status
 
@@ -160,6 +160,6 @@ class provider_services_logger(parent):
             contents = f.readlines()
 
         with open(file_name, "w") as f:
-            contents.insert(8, record)  # Add record at eigth line.
+            contents.insert(9, record)  # Add record at eigth line.
             res = "".join(contents)
             f.write(res)
