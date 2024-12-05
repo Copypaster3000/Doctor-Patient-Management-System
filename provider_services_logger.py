@@ -34,12 +34,12 @@ class provider_services_logger(parent):
     ) -> datetime:
         """Get user input for a date and confirm before returning."""
         choice = "N"
-        form = "%m/%d/%y"
+        form = "%m/%d/%Y"
         # local_tz = tzlocal.get_localzone()
 
         while choice.capitalize() != "Y":
             date_input = input(
-                "Enter the time and date of the service (MM/DD/YY format): "
+                "Enter the time and date of the service (MM/DD/YYYY format): "
             )
             try:
                 parse = datetime.datetime.strptime(date_input, form)
@@ -69,10 +69,9 @@ class provider_services_logger(parent):
         if member_status != "valid":
             print("Member suspended.")
             return
-        print("Patient validated.")
+        print("Patient validated.\n")
 
         current_datetime = datetime.datetime.now()
-        print("DEBUG: current_datetime: ", str(current_datetime))
 
         service_date = self.get_date()
 
