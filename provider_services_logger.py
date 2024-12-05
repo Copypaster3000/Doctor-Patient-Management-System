@@ -51,7 +51,7 @@ class provider_services_logger(parent):
         return parse
 
     def log_member_services(self) -> None:  # noqa: D102
-        print("Enter Provider number:")
+        print("\nEnter Provider number:")
         provider_id = super().get_9_digits()
         while not super().person_exists(
             provider_id,
