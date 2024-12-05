@@ -8,6 +8,7 @@ from profile_manager import profile_manager
 from services_manager import services_manager
 from member_reports import member_reports as mp
 from provider_reports import provider_reports
+from provider_services_logger import provider_services_logger
 
 
 class menus_n_modes(parent):
@@ -18,6 +19,7 @@ class menus_n_modes(parent):
         self.services = services_manager() # instance of services manager to use its functions to manager and view services in the data base
         self.member_reports = mp() #JO: an instance of member reports class to use its functions
         self.provider_reports = provider_reports()# NR an instance of the provider reports class 
+        self.service_logger = provider_services_logger()
 
 
     #displays main menu and returns the user's menu choice
@@ -38,7 +40,7 @@ class menus_n_modes(parent):
 
         #while the user hasn't chosen to exit manager mode
         while (choice != 14):
-            print("\nManger Mode")
+            print("\nManager Mode")
             print("Select an option form the menu:")
             print("1) Generate a doctor's weekly services report")
             print("2) Generate a member's weekly services report")
@@ -60,14 +62,14 @@ class menus_n_modes(parent):
             if (choice == 1): self.provider_reports.generate_provider_service_report() #NR
             if (choice == 2): self.member_reports.generate_member_report() #JO
             if (choice == 3): self.provider_reports.generate_provider_summary_report() #NR
-            if (choice == 4): self.provider_reports.generate_EFT_report() #NR
-            if (choice == 5): self.profile_edits.add_new_doctor_profile()
-            if (choice == 6): self.profile_edits.add_new_member_profile()
-            if (choice == 7): self.profile_edits.edit_doctor_profile()
-            if (choice == 8): self.profile_edits.edit_member_profile()
-            if (choice == 9): self.profile_edits.remove_doctor_profile()
-            if (choice == 10): self.profile_edits.remove_member_profile()
-            if (choice == 11): self.profile_edits.edit_member_status()
+            if (choice == 4): self.provider_reports.generate_EFT_report() #DW
+            if (choice == 5): self.profile_edits.add_new_doctor_profile() #DW
+            if (choice == 6): self.profile_edits.add_new_member_profile() #DW
+            if (choice == 7): self.profile_edits.edit_doctor_profile() #DW
+            if (choice == 8): self.profile_edits.edit_member_profile() #DW
+            if (choice == 9): self.profile_edits.remove_doctor_profile() #DW
+            if (choice == 10): self.profile_edits.remove_member_profile() #DW
+            if (choice == 11): self.profile_edits.edit_member_status() #DW
             if (choice == 12): self.services.add_service()
             if (choice == 13): self.services.remove_service()
 
@@ -89,6 +91,7 @@ class menus_n_modes(parent):
             print("3) Exit provider mode")
             choice = self.parent_object.get_menu_choice(3) #gets user's menu choice
             
+            if (choice == 1): self.service_logger.log_member_services()
             if (choice == 2): self.services.view_service_directory()
 
         print("Exited Provider Mode\n") #notifies user they have exited provider mode

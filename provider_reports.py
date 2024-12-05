@@ -37,6 +37,8 @@ class provider_reports(parent):
     
 
 
+
+
     def get_name_by_id_num(self, id_number):#returns the name of a doctor based on their id number
         # Get the current working directory
         current_directory = os.getcwd()
@@ -106,6 +108,8 @@ class provider_reports(parent):
     
 
     
+
+
     def generate_provider_service_report(self): #high level menu option
         #get provider from user
         print("please enter the ID number of the provider you wish to generate a service report for:")
@@ -153,6 +157,8 @@ class provider_reports(parent):
 
 
 
+
+
     def copy_and_rename_file(self, original_file, new_file_name):#copies and re-names a file
         # Get the current working directory
         current_directory = os.getcwd()
@@ -170,6 +176,8 @@ class provider_reports(parent):
         except Exception as e:
             print(f"An error occurred: {e}")
         return
+
+
     
 
 
