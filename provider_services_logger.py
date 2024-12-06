@@ -148,8 +148,7 @@ class provider_services_logger(parent):
     def write_service_to_profile(self, service_record: dict, file_name: str):
         """Records a new service to the profile corresponding to profile_id. Preserves linebreak formatting."""
 
-        record = f"""
-{service_record["timestamp"]}
+        record = f"""{service_record["timestamp"]}
 {service_record["service_date"]}
 {service_record["provider_id"]}
 {service_record["member_id"]}
