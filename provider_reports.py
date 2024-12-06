@@ -147,7 +147,7 @@ class provider_reports(parent):
         service_count = "Total number of consultations: " + str(temp_service_count)#formatts string for insertion at the end of file
 
         temp_weekly_fee = self.calc_weekly_fees(old_file)#calculates weekly fee
-        weekly_fee = "Total fee for all consulations: " + str(temp_weekly_fee)#formatts string for insertion at the end of file
+        weekly_fee = "Total fee for all consultations: " + str(temp_weekly_fee)#formatts string for insertion at the end of file
 
         try:
             lines = []
@@ -373,7 +373,7 @@ class provider_reports(parent):
                 #start processing from line 8
                 index = 7 #line 8 is the 8th index (0-based)
 
-                while index < len(lines): #while there are still services to check 
+                while index + 7 < len(lines): #while there are still services to check 
                     #get the date
                     try:
                         #service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y")

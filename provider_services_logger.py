@@ -79,7 +79,7 @@ class provider_services_logger(parent):
         while not self.services_manager.service_code_exists(service_code):
             print("Service code does not exist. Please enter a valid service code.")
             service_code = self.services_manager.get_6_digits()
-        (service_name, service_fee) = self.services_manager.get_service_info_from_code(
+        (service_name, service_fee) = self.services_manager.get_service_from_code(
             service_code
         )
         print(

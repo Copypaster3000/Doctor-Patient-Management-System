@@ -168,7 +168,7 @@ class parent:
 
     #this function returns the specified ine the text file whose name is passed in
     #it strips the newline character the the end is there is one
-    #if the file is not found, it prints an error and returns none
+    #if the file is not found, it prints an error and returns empty string
     #the line number parameter specifies which line to read, (0 for the first)
     def get_line_of_file(self, file_name, line_number):
         #attempts to open specified file in read mode
@@ -180,12 +180,12 @@ class parent:
                 if 0 <= line_number < len(lines):
                     return lines[line_number].rstrip('\n') #returns specified line without newline character
                 else:
-                    print(f"Error: Line {line_number} is out of range.")
-                    return None
+                    print(f"Error: Line {line_number} is out of range. get_line_of_file returning empty string.")
+                    return ""
 
         except FileNotFoundError: #if file not found
-            print(f"Error: {file_name} not found.")
-            return None
+            print(f"Error: {file_name} not found. get_line_of_file returning empty string.")
+            return ""
 
 
 
