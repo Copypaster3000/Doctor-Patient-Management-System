@@ -375,13 +375,16 @@ class provider_reports(parent):
             print("There are no doctor profiles the the data base, there is no data to create an ETF report.")
             return
 
-        current_date = datetime.now().strftime("%m_%d_%Y") #get current date and time in MM_DD_YYYY format
+        current_date = datetime.now().strftime("%m-%d-%Y") #get current date and time in MM_DD_YYYY format
 
         #create file name
         file_name = f"ETF_REPORT_{current_date}.txt"
 
         #create and open etf report in write mode
         with open(file_name, 'w') as etf_report:
+            etf_report.write(f"Provider ETF Report {current_date}\n\n")
+
+
             for doctor_file in self.doctor_files: #for each doctor file
                 doctors_fees = self.calc_weekly_fees(doctor_file) #get the doctors weekly fees
 
@@ -400,9 +403,9 @@ class provider_reports(parent):
                     etf_report.write(" \n")
 
             if not fees_owed:
-                etf_report.write("No doctors provided any billable services in the last week.\n")
+                etf_report.write(f"No doctors provided any billable services in the last week, {current_date}.\n")
 
-        print("\nETF Report has been created: \n")
+        print("\n")
         if not super().display_file_contents(file_name): #prints generated etf report file
             print("Error: ETF report file not found.\n")
 
@@ -426,7 +429,6 @@ class provider_reports(parent):
                 while index + 7 < len(lines): #while there are still services to check 
                     #get the date
                     try:
-                        #service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y")
                         service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y %H:%M:%S")
                     except ValueError: #handle errors from try block
                         print(f"{file_name}: Invalid date format on line {index + 1} found while generating ETF report. Skipping that service block.")
