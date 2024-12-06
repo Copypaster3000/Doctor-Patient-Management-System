@@ -155,7 +155,7 @@ class provider_services_logger(parent):
 {service_record["member_id"]}
 {service_record["service_code"]}
 {service_record["service_fee"]}
-{service_record["comments"]}
+{service_record["comments"]}\n
 """
         contents = []
         with open(file_name, "r") as f:
