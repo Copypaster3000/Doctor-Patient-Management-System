@@ -43,17 +43,17 @@ class test_provider_services_logger(unittest.TestCase):
 
     def test_check_get_date(self):
         with unittest.mock.patch('builtins.input', side_effect=[
-            "12/05/2024",
+            "12-05-2024",
             "Y"
         ]):
-            result = self.psl.get_date().strftime("%m/%d/%Y")
-            assert result == "12/05/2024", f"Expected '12/05/2024' but got {result}"
+            result = self.psl.get_date().strftime("%m-%d-%Y")
+            assert result == "12-05-2024", f"Expected '12-05-2024' but got {result}"
     
     def test_check_log_member_services(self):
         with unittest.mock.patch('builtins.input',side_effect=[
             self.example_provider_ID,
             self.example_patient_ID,
-            "12/05/2024",
+            "12-05-2024",
             "Y",
             self.example_service_code,
             "Example comments",
