@@ -4,25 +4,28 @@
 #Including generating a doctor's weekly service report, generating a provider summary report for all doctors, and generating
 #a weekly ETF report. All of which will be available through Manager Mode.
 
+#the folllwing functions are defined in this file, in the following order:
+
+#def count_weekly_consultations(self, doctor_file):
 #def generate_provider_summary_report(): #high level menu option
-#def generate_provider_service_report(): #high level menu option
-#def generate_EFT_report(): #high level menu option
-#def get_provider(): #get a provider the user wants to generate a provider service report for, and validate user input
-#def chronological_sort(): #sort services in a file by chronological order by day the service was provided
-#def display_provider_service_report() #displays the provider service report text file
-#def display_proiver_summary_report(): #displays the provider summary report
 #def get_name_by_id_num(self, id_number):#returns the name of a doctor based on their id number
+#def remove_outdated_services(self, file_name):
+#def generate_provider_service_report(): #high level menu option
+#def print_report(self, report_file):
 #def copy_and_rename_file(self, original_file, new_file_name):#copies and re-names a file
-#def insert_line_in_file(file_path, line_number, new_line):#Inserts a new line at a specific line number in a file without disrupting the rest of the file.
 #def add_labels(self, file_name):#adds labels to report file
+#def insert_line_in_file(file_path, line_number, new_line):#Inserts a new line at a specific line number in a file without disrupting the rest of the file.
+#def generate_EFT_report(): #high level menu option
+#def calc_weekly_fees(self, file_name):
+#def get_doctor_files(self):
+
+
 from datetime import date, datetime, timedelta
 from parent import parent
 import shutil
 import glob
 import sys
 import os
-
-#123456789_doctor_name_template_provider_service_report_MM_DD_YYYY.txt
 
 #provider_summary_report_MM_DD_YYYY lists every provider to be paid that week, 
 #the number of consultations each provider had, and the fee dues to each provider. 
@@ -32,11 +35,48 @@ class provider_reports(parent):
     def __init__(self):
         self.doctor_files = self.get_doctor_files()
 
-    def count_weekly_consultations(self, doctor_file):
-        return
+    def count_weekly_consultations(self, file_name):#counts the number of consultations in the past week
+        total_consultations = 0.0
+        service_date = None 
+        one_week_ago = datetime.now() - timedelta(days=7) #calculate the date one week ago
+
+        try:
+            with open(file_name, 'r') as file:
+                lines = file.readlines() #store the lines in the file in variable
+
+                if len(lines) <= 7: return 0.0 #if there arn't more than 7 lines in the file then there are not services so return $0
+
+                #start processing from line 8
+                index = 7 #line 8 is the 8th index (0-based)
+
+                while index + 7 < len(lines): #while there are still services to check 
+                    #get the date
+                    try:
+                        #service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y")
+                        service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y %H:%M:%S")
+                    except ValueError: #handle errors from try block
+                        print(f"{file_name}: Invalid date format on line {index + 1} found while generating ETF report. Skipping that service block.")
+                        index += 8
+                        continue #skip to next if improper date format
+
+                    if service_date >= one_week_ago: #if the service is less than a week old
+                        try: 
+                            total_consultations += 1#count the service
+                        except ValueError: #handle errors from try block
+                            print(f"{file_name}: Invalid fee format on line {index + 5}. Skipping block.")
+                        except IndexError:
+                            print(f"{file_name}: Fee line (line {index + 5}) out of bounds. Skipping block.")
+
+                    index += 8 #move to the next service block
+
+        except FileNotFoundError: #handle errors for accessing file
+            print(f"File {file_name} not found wile trying to generate ETF report.")
+        except Exception as e:
+            print(f"An error occurred while processing {file_name}: {e}")
+
+        return total_consultations
 
 
-    '''
     def generate_provider_summary_report(self): #high level menu option
         doctor_name = ""
         doctor_id_num = ""
@@ -52,36 +92,45 @@ class provider_reports(parent):
 
         #create file name
         file_name = f"provider_summary_report_{current_date}.txt"
+        try:
+            #create and open provider summary report in write mode
+            with open(file_name, 'w') as provider_summary_report:
 
-        #create and open provider summary report in write mode
-        with open(file_name, 'w') as provider_summary_report:
-            for doctor_file in self.doctor_files: #for each doctor file
-                doctors_fees = self.calc_weekly_fees(doctor_file) #get the doctors weekly fees
-                num_of_consultations = self.count_weekly_counsultations(doctor_file)
-                total_weekly_consultations +=num_of_con
-                weekly_fee_sum += doctors_fees
+                for doctor_file in self.doctor_files: #for each doctor file
 
-                #if this doctor should be added to etf report
-                if doctors_fees > 0:
-                    fees_owed = True
+                    doctors_fees = self.calc_weekly_fees(doctor_file) #get the doctors weekly fees
+                    num_of_consultations = self.count_weekly_consultations(doctor_file)#counts the number of consultations in the past week
+                    total_weekly_consultations += num_of_consultations
+                    weekly_fee_sum += doctors_fees
 
-                    #get name and id num
-                    doctor_name = super().get_line_of_file(doctor_file, 0)
-                    doctor_id_num = super().get_line_of_file(doctor_file, 1)
+                    #if this doctor should be added to etf report
+                    if doctors_fees > 0:
+                        fees_owed = True
 
-                    #write the info for each doctor that has fees into the etf report
-                    provider_summary_report.write(f"Provider name: {doctor_name}\n")
-                    provider_summary_report.write(f"ID number: {doctor_id_num}\n")
-                    provider_summary_report.write(f"Total number of consultations: {num_of_colsultations}\n")
-                    provider_summary_report.write(f"Weekly Fee: {doctors_fees}\n")
-                    provider_summary_report.write(" \n")
+                        #get name and id num
+                        doctor_name = super().get_line_of_file(doctor_file, 0)
+                        doctor_id_num = super().get_line_of_file(doctor_file, 1)
 
-            if not fees_owed:
-                etf_report.write("No doctors provided any billable services in the last week.\n")
+                        #write the info for each doctor that has fees into the provider summary report
+                        provider_summary_report.write(f"Provider name: {doctor_name}\n")
+                        provider_summary_report.write(f"ID number: {doctor_id_num}\n")
+                        provider_summary_report.write(f"Number of consultations: {num_of_consultations}\n")
+                        provider_summary_report.write(f"Weekly Fee: {doctors_fees}\n")
+                        provider_summary_report.write(" \n")
 
-        print("\nETF Report has been created: \n")
-        if not super().display_file_contents(file_name): #prints generated etf report file
-    '''
+                if not fees_owed:
+                    provider_summary_report.write("No doctors provided any billable services in the last week.\n")
+            with open(file_name, 'a') as provider_summary_report:
+            #apend totals with labels to the end of the file:
+                provider_summary_report.write(f"Total of all consultations: {total_weekly_consultations}\n")
+                provider_summary_report.write(f"Sum of all weekly fees: {weekly_fee_sum}\n")
+
+            print("\nProvider summary report has been created: \n")
+            self.print_report(file_name)
+        except FileNotFoundError:
+            print(f"File {file_name} not found wile trying to generate provider service report.", file=sys.stderr)
+        except Exception as e:
+            print(f"An error occurred while processing {file_name}: {e}", file=sys.stderr)
 
 
 
@@ -161,16 +210,17 @@ class provider_reports(parent):
 
     def generate_provider_service_report(self): #high level menu option
         #get provider from user
-        print("\nPlease enter the ID number of the provider you wish to generate a service report for")
+        print(" \n")
+        print("please enter the ID number of the provider you wish to generate a service report for")
         id_num = super().get_9_digits()
-        while(super().person_exists(id_num) == False):
-            print("There is not provider in the system with that ID number.")
-            print("What would you like to do?")
-            print("1) Re-enter ID number")
-            print("2) Return to menu")
+        while(super().file_exists(id_num, "doctor", "profile") == None):
+            print("there is not provider in the system with that ID number.")
+            print("what would you like to do?")
+            print("1) re-enter ID number")
+            print("2) return to menu")
             choice = super().get_menu_choice(2)
             if(choice == 1):
-                print("Please enter the ID number of the provider you wish to generate a service report for")
+                print("please enter the ID number of the provider you wish to generate a service report for")
                 id_num = super().get_9_digits()
             if(choice == 2):
                 return
@@ -196,22 +246,20 @@ class provider_reports(parent):
         weekly_fee = "Total fee for all consultations: " + str(temp_weekly_fee)#formatts string for insertion at the end of file
 
         try:
-            lines = []
-            with open(new_file_name, 'r') as file:
-                lines = file.readlines()
-                legnth = len(lines)
+            with open(new_file_name, 'a') as file:
 
-                lines.insert(legnth - 1, service_count + '\n')
-                lines.insert(legnth - 1, weekly_fee + '\n')
+                file.write(service_count + '\n')
+                file.write(weekly_fee + '\n')
 
             # Write the modified contents back to the file
-            with open(new_file_name, 'w') as file:
-                file.writelines(lines)
+            #with open(new_file_name, 'w') as file:
+                #file.writelines(lines)
         except FileNotFoundError:
             print(f"File {new_file_name} not found wile trying to generate provider service report.")
         except Exception as e:
             print(f"An error occurred while processing {new_file_name}: {e}")
         
+        print("\nProvider service report has been created: \n")
         self.print_report(new_file_name)
 
 
