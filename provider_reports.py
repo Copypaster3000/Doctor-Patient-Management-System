@@ -24,18 +24,64 @@ import os
 
 #123456789_doctor_name_template_provider_service_report_MM_DD_YYYY.txt
 
+#provider_summary_report_MM_DD_YYYY lists every provider to be paid that week, 
+#the number of consultations each provider had, and the fee dues to each provider. 
+#At the bottom of the file, the total fee due to all providers and the total number 
+#of consultations of all providers will be present.
 class provider_reports(parent):
     def __init__(self):
         self.doctor_files = self.get_doctor_files()
 
-
-
-    def generate_provider_summary_report(): #high level menu option
-        #get date range of the summary report from the user
-        #find all doctor profiles will services logged in that range (probably a recursisve algorithim)
-        #as services in that range are found, copy service and doctor information to local variables
+    def count_weekly_consultations(self, doctor_file):
         return
-    
+
+
+    '''
+    def generate_provider_summary_report(self): #high level menu option
+        doctor_name = ""
+        doctor_id_num = ""
+        fees_owed = False
+        weekly_fee_sum = 0
+        total_weekly_consultations = 0
+
+        if self.doctor_files is None: 
+            print("There are no doctor profiles the the data base, there is no data to create an ETF report.")
+            return
+
+        current_date = datetime.now().strftime("%m_%d_%Y") #get current date and time in MM_DD_YYYY format
+
+        #create file name
+        file_name = f"provider_summary_report_{current_date}.txt"
+
+        #create and open provider summary report in write mode
+        with open(file_name, 'w') as provider_summary_report:
+            for doctor_file in self.doctor_files: #for each doctor file
+                doctors_fees = self.calc_weekly_fees(doctor_file) #get the doctors weekly fees
+                num_of_consultations = self.count_weekly_counsultations(doctor_file)
+                total_weekly_consultations +=num_of_con
+                weekly_fee_sum += doctors_fees
+
+                #if this doctor should be added to etf report
+                if doctors_fees > 0:
+                    fees_owed = True
+
+                    #get name and id num
+                    doctor_name = super().get_line_of_file(doctor_file, 0)
+                    doctor_id_num = super().get_line_of_file(doctor_file, 1)
+
+                    #write the info for each doctor that has fees into the etf report
+                    provider_summary_report.write(f"Provider name: {doctor_name}\n")
+                    provider_summary_report.write(f"ID number: {doctor_id_num}\n")
+                    provider_summary_report.write(f"Total number of consultations: {num_of_colsultations}\n")
+                    provider_summary_report.write(f"Weekly Fee: {doctors_fees}\n")
+                    provider_summary_report.write(" \n")
+
+            if not fees_owed:
+                etf_report.write("No doctors provided any billable services in the last week.\n")
+
+        print("\nETF Report has been created: \n")
+        if not super().display_file_contents(file_name): #prints generated etf report file
+    '''
 
 
 
@@ -115,7 +161,8 @@ class provider_reports(parent):
 
     def generate_provider_service_report(self): #high level menu option
         #get provider from user
-        print("please enter the ID number of the provider you wish to generate a service report for:")
+        print(" \n")
+        print("please enter the ID number of the provider you wish to generate a service report for")
         id_num = super().get_9_digits()
         while(super().person_exists(id_num) == False):
             print("there is not provider in the system with that ID number.")
@@ -221,6 +268,7 @@ class provider_reports(parent):
         fee = "Fee: "
         comments = "Comments: "
         service_count = 0
+        legnth = 0
         #get name from file and add it to string with label
         name = name + super().get_line_of_file(file_name, 0)
         #rewrite line in file with new string
@@ -237,58 +285,61 @@ class provider_reports(parent):
         #insert a new line before the adress with the adress label
         self.insert_line_in_file(file_path, 3, adress)
 
-       #iterate through file adding labels to any services listed 
         try:
             with open(file_name, 'r') as file:
-                for line_number, line in enumerate(file, start=1):  # start=1 makes line_number start from 1
-
-                    # starting at line 8 and every 8 lines after that
-                    if line_number >= 8 and (line_number - 8) % 8 == 0:
-                        if(super().get_line_of_file(file_name, line_number) != ''):
-                            service_count += 1
-                            temp_date_and_time_service_was_recorded = date_and_time_service_was_recorded + super().get_line_of_file(file_name, line_number)
-                            super().overwrite_line_in_file(file_name, line_number, temp_date_and_time_service_was_recorded)
-                    
-                    #starting at line 9 and every 8 lines after that
-                    if line_number >= 9 and (line_number - 9) % 8 == 0:
-                        if(super().get_line_of_file(file_name, line_number) != ''):
-                            temp_date_service_was_provided = date_service_was_provided + super().get_line_of_file(file_name, line_number)
-                            super().overwrite_line_in_file(file_name, line_number, temp_date_service_was_provided)
-
-                    #starting at line 10 and every 8 lines after that
-                    if line_number >= 10 and (line_number - 10) % 8 == 0:
-                        if(super().get_line_of_file(file_name, line_number) != ''):
-                            temp_provider_num = provider_num + super().get_line_of_file(file_name, line_number)
-                            super().overwrite_line_in_file(file_name, line_number, temp_provider_num)
-
-                    #starting at line 11 and every 8 lines after that
-                    if line_number >= 11 and (line_number - 11) % 8 == 0:
-                        if(super().get_line_of_file(file_name, line_number) != ''):
-                            temp_member_num = member_num + super().get_line_of_file(file_name, line_number)
-                            super().overwrite_line_in_file(file_name, line_number, temp_member_num)
-
-                    #starting at line 12 and every 8 lines after that
-                    if line_number >= 12 and (line_number - 12) % 8 == 0:
-                        if(super().get_line_of_file(file_name, line_number) != ''):
-                            temp_service_code = service_code + super().get_line_of_file(file_name, line_number)
-                            super().overwrite_line_in_file(file_name, line_number, temp_service_code)
-
-                    #starting at line 13 and every 8 lines after that
-                    if line_number >= 13 and (line_number - 13) % 8 == 0:
-                        if(super().get_line_of_file(file_name, line_number) != ''):
-                            temp_fee = fee + super().get_line_of_file(file_name, line_number)
-                            super().overwrite_line_in_file(file_name, line_number, temp_fee)
-
-                    #starting at line 14 and every 8 lines after that
-                    if line_number >= 14 and (line_number - 14) % 8 == 0:
-                        if(super().get_line_of_file(file_name, line_number) != ''):
-                            temp_comments = comments + super().get_line_of_file(file_name, line_number)
-                            super().overwrite_line_in_file(file_name, line_number, temp_comments)
-
+                lines = file.readlines()#get the number of lines in the file
+                legnth = len(lines)
+                #file.close
         except FileNotFoundError:
                 print(f"Error: File '{file_path}' not found.", file=sys.stderr)
         except Exception as e:
                 print(f"An error occurred: {e}", file=sys.stderr)
+
+        #iterate through file index's adding labels to any services listed 
+        for line_number in range(legnth):
+
+            # starting at line 8 and every 8 lines after that
+            if line_number >= 8 and (line_number - 8) % 8 == 0:
+                if(super().get_line_of_file(file_name, line_number) != ''):
+                    service_count += 1
+                    temp_date_and_time_service_was_recorded = date_and_time_service_was_recorded + super().get_line_of_file(file_name, line_number)
+                    super().overwrite_line_in_file(file_name, line_number, temp_date_and_time_service_was_recorded)
+                    
+            #starting at line 9 and every 8 lines after that
+            if line_number >= 9 and (line_number - 9) % 8 == 0:
+                if(super().get_line_of_file(file_name, line_number) != ''):
+                    temp_date_service_was_provided = date_service_was_provided + super().get_line_of_file(file_name, line_number)
+                    super().overwrite_line_in_file(file_name, line_number, temp_date_service_was_provided)
+
+            #starting at line 10 and every 8 lines after that
+            if line_number >= 10 and (line_number - 10) % 8 == 0:
+                if(super().get_line_of_file(file_name, line_number) != ''):
+                    temp_provider_num = provider_num + super().get_line_of_file(file_name, line_number)
+                    super().overwrite_line_in_file(file_name, line_number, temp_provider_num)
+
+            #starting at line 11 and every 8 lines after that
+            if line_number >= 11 and (line_number - 11) % 8 == 0:
+                if(super().get_line_of_file(file_name, line_number) != ''):
+                    temp_member_num = member_num + super().get_line_of_file(file_name, line_number)
+                    super().overwrite_line_in_file(file_name, line_number, temp_member_num)
+
+            #starting at line 12 and every 8 lines after that
+            if line_number >= 12 and (line_number - 12) % 8 == 0:
+                if(super().get_line_of_file(file_name, line_number) != ''):
+                    temp_service_code = service_code + super().get_line_of_file(file_name, line_number)
+                    super().overwrite_line_in_file(file_name, line_number, temp_service_code)
+
+            #starting at line 13 and every 8 lines after that
+            if line_number >= 13 and (line_number - 13) % 8 == 0:
+                if(super().get_line_of_file(file_name, line_number) != ''):
+                    temp_fee = fee + super().get_line_of_file(file_name, line_number)
+                    super().overwrite_line_in_file(file_name, line_number, temp_fee)
+
+            #starting at line 14 and every 8 lines after that
+            if line_number >= 14 and (line_number - 14) % 8 == 0:
+                if(super().get_line_of_file(file_name, line_number) != ''):
+                    temp_comments = comments + super().get_line_of_file(file_name, line_number)
+                    super().overwrite_line_in_file(file_name, line_number, temp_comments)
         return service_count
 
 
@@ -373,7 +424,7 @@ class provider_reports(parent):
                 #start processing from line 8
                 index = 7 #line 8 is the 8th index (0-based)
 
-                while index < len(lines): #while there are still services to check 
+                while index + 7 < len(lines): #while there are still services to check 
                     #get the date
                     try:
                         #service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y")
