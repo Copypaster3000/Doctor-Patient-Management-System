@@ -166,8 +166,8 @@ class provider_reports(parent):
         while(super().person_exists(id_num) == False):
             print("There is not provider in the system with that ID number.")
             print("What would you like to do?")
-            print("1) re-enter ID number")
-            print("2) return to menu")
+            print("1) Re-enter ID number")
+            print("2) Return to menu")
             choice = super().get_menu_choice(2)
             if(choice == 1):
                 print("Please enter the ID number of the provider you wish to generate a service report for")
