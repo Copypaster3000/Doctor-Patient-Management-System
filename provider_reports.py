@@ -161,17 +161,16 @@ class provider_reports(parent):
 
     def generate_provider_service_report(self): #high level menu option
         #get provider from user
-        print(" \n")
-        print("please enter the ID number of the provider you wish to generate a service report for")
+        print("\nPlease enter the ID number of the provider you wish to generate a service report for")
         id_num = super().get_9_digits()
         while(super().person_exists(id_num) == False):
-            print("there is not provider in the system with that ID number.")
-            print("what would you like to do?")
+            print("There is not provider in the system with that ID number.")
+            print("What would you like to do?")
             print("1) re-enter ID number")
             print("2) return to menu")
             choice = super().get_menu_choice(2)
             if(choice == 1):
-                print("please enter the ID number of the provider you wish to generate a service report for")
+                print("Please enter the ID number of the provider you wish to generate a service report for")
                 id_num = super().get_9_digits()
             if(choice == 2):
                 return
@@ -259,7 +258,7 @@ class provider_reports(parent):
         #define labels to insert infront of data 
         name = "First and last name: "
         id_num = "ID number: "
-        adress = "Adress: "
+        adress = "Address: "
         date_and_time_service_was_recorded = "Date and time service recorded: "
         date_service_was_provided = "Date service was provided: "
         provider_num = "Provider number: "
