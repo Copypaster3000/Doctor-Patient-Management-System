@@ -155,13 +155,19 @@ class provider_services_logger(parent):
 {service_record["member_id"]}
 {service_record["service_code"]}
 {service_record["service_fee"]}
-{service_record["comments"]}\n
+{service_record["comments"]}
 """
         contents = []
         with open(file_name, "r") as f:
             contents = f.readlines()
 
         with open(file_name, "w") as f:
-            contents.insert(9, record)  # Add record at eigth line.
-            res = "".join(contents)
-            f.write(res)
+            # write to different line numbers, depending on type of profile
+            if "member" in file_name:
+                contents.insert(8, record)  # Add record at ninth line.
+                res = "".join(contents)
+                f.write(res)
+            elif "doctor" in file_name:
+                contents.insert(6, record)
+                res = "".join(contents)
+                f.write(res)
