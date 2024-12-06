@@ -51,7 +51,7 @@ class provider_services_logger(parent):
         return parse
 
     def log_member_services(self) -> None:  # noqa: D102
-        print("Enter Provider number:")
+        print("\nEnter Provider number:")
         provider_id = super().get_9_digits()
         while not super().person_exists(
             provider_id,
@@ -79,7 +79,7 @@ class provider_services_logger(parent):
         while not self.services_manager.service_code_exists(service_code):
             print("Service code does not exist. Please enter a valid service code.")
             service_code = self.services_manager.get_6_digits()
-        (service_name, service_fee) = self.services_manager.get_service_info_from_code(
+        (service_name, service_fee) = self.services_manager.get_service_from_code(
             service_code
         )
         print(
