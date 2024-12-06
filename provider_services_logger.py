@@ -88,7 +88,7 @@ class provider_services_logger(parent):
         )  # TODO allow user to reject/confirm code here?  TODO or remove this print.
         # TODO also log service fee.
         comments = input(
-            "(Optional) Enter any comments about the provided service, or leave blank: "
+            "\n(Optional) Enter any comments about the provided service, or leave blank: "
         )
         # save service record with data
         # add to servie record
