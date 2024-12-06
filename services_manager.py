@@ -30,7 +30,7 @@ class services_manager(parent):
         
     # gets the 6 digit service code 
     def get_6_digits(self): 
-        service_code = input("Enter 6 digit service code: ") # get user input
+        service_code = input("\nEnter 6 digit service code: ") # get user input
 
         # while the service code entered isnt 6 digits, reprompt
         while not self.is_6_digits(service_code):

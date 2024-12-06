@@ -34,12 +34,12 @@ class provider_services_logger(parent):
     ) -> datetime:
         """Get user input for a date and confirm before returning."""
         choice = "N"
-        form = "%m/%d/%Y"
+        form = "%m-%d-%Y"
         # local_tz = tzlocal.get_localzone()
 
         while choice.capitalize() != "Y":
             date_input = input(
-                "Enter the time and date of the service (MM/DD/YYYY format): "
+                "Enter the time and date of the service (MM-DD-YYYY format): "
             )
             try:
                 parse = datetime.datetime.strptime(date_input, form)
@@ -47,11 +47,11 @@ class provider_services_logger(parent):
                 print(f"Invalid date or time format: {e}")
                 continue  # Jump to the next iteration
             print(f"Entered: {parse.strftime(form)}")
-            choice = input("(Y) to confirm, any other input to re-input.")
+            choice = input("(Y) to confirm, any other input to re-input: ")
         return parse
 
     def log_member_services(self) -> None:  # noqa: D102
-        print("Enter Provider number:")
+        print("\nEnter Provider number:")
         provider_id = super().get_9_digits()
         while not super().person_exists(
             provider_id,
@@ -72,14 +72,15 @@ class provider_services_logger(parent):
         print("Patient validated.\n")
 
         current_datetime = datetime.datetime.now()
-
+        formatted_current_datetime = f"{current_datetime.month}-{current_datetime.day}-{current_datetime.year} {current_datetime.hour}:{current_datetime.minute}:{current_datetime.second}"
         service_date = self.get_date()
+        formatted_service_date = f"{service_date.month}-{service_date.day}-{service_date.year}"
 
         service_code = self.services_manager.get_6_digits()
         while not self.services_manager.service_code_exists(service_code):
             print("Service code does not exist. Please enter a valid service code.")
             service_code = self.services_manager.get_6_digits()
-        (service_name, service_fee) = self.services_manager.get_service_info_from_code(
+        (service_name, service_fee) = self.services_manager.get_service_from_code(
             service_code
         )
         print(
@@ -87,13 +88,13 @@ class provider_services_logger(parent):
         )  # TODO allow user to reject/confirm code here?  TODO or remove this print.
         # TODO also log service fee.
         comments = input(
-            "(Optional) Enter any comments about the provided service, or leave blank: "
+            "\n(Optional) Enter any comments about the provided service, or leave blank: "
         )
         # save service record with data
         # add to servie record
         service_record = {
-            "timestamp": current_datetime,
-            "service_date": service_date,
+            "timestamp": formatted_current_datetime,
+            "service_date": formatted_service_date,
             "provider_id": provider_id,
             "member_id": member_id,
             "service_code": service_code,
@@ -134,10 +135,12 @@ class provider_services_logger(parent):
         else:  # Both ID's have matching profiles.
             provider_name = super().get_line_of_file(provider_file, 0)
             patient_name = super().get_line_of_file(patient_file, 0)
+            print('\n')
             print(f"Found profile for provider {provider_name}. Logging service...")
             self.write_service_to_profile(service_record, provider_file)
 
             print(f"Found profile for member {patient_name}. Logging service...")
+            print('\n')
             self.write_service_to_profile(service_record, patient_file)
             print("Service logged for provider and member.")
             return
@@ -152,7 +155,7 @@ class provider_services_logger(parent):
 {service_record["member_id"]}
 {service_record["service_code"]}
 {service_record["service_fee"]}
-{service_record["comments"]}
+{service_record["comments"]}\n
 """
         contents = []
         with open(file_name, "r") as f:
