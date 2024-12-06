@@ -474,7 +474,7 @@ class provider_reports(parent):
                 #start processing from line 8
                 index = 7 #line 8 is the 8th index (0-based)
 
-                while index + 7 < len(lines): #while there are still services to check 
+                while index + 5 < len(lines): #while there are still services to check 
                     #get the date
                     try:
                         service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y %H:%M:%S")
