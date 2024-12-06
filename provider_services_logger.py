@@ -39,7 +39,7 @@ class provider_services_logger(parent):
 
         while choice.capitalize() != "Y":
             date_input = input(
-                "Enter the time and date of the service (MM-DD-YYYY format): "
+                "Enter the date the service was or will be provided (MM-DD-YYYY format): "
             )
             try:
                 parse = datetime.datetime.strptime(date_input, form)
@@ -72,7 +72,8 @@ class provider_services_logger(parent):
         print("Patient validated.\n")
 
         current_datetime = datetime.datetime.now()
-        formatted_current_datetime = f"{current_datetime.month}-{current_datetime.day}-{current_datetime.year} {current_datetime.hour}:{current_datetime.minute}:{current_datetime.second}"
+        #formatted_current_datetime = f"{current_datetime.month}-{current_datetime.day}-{current_datetime.year} {current_datetime.hour}:{current_datetime.minute}:{current_datetime.second}"
+        formatted_current_datetime = current_datetime.strftime("%m-%d-%Y %H:%M:%S")
         service_date = self.get_date()
         formatted_service_date = f"{service_date.month}-{service_date.day}-{service_date.year}"
 
