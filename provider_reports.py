@@ -211,16 +211,16 @@ class provider_reports(parent):
     def generate_provider_service_report(self): #high level menu option
         #get provider from user
         print(" \n")
-        print("please enter the ID number of the provider you wish to generate a service report for")
+        print("Please enter the ID number of the provider you wish to generate a service report for")
         id_num = super().get_9_digits()
         while(super().file_exists(id_num, "doctor", "profile") == None):
-            print("there is not provider in the system with that ID number.")
+            print("There is no provider in the system with that ID number.")
             print("what would you like to do?")
             print("1) re-enter ID number")
             print("2) return to menu")
             choice = super().get_menu_choice(2)
             if(choice == 1):
-                print("please enter the ID number of the provider you wish to generate a service report for")
+                print("Please enter the ID number of the provider you wish to generate a service report for")
                 id_num = super().get_9_digits()
             if(choice == 2):
                 return
