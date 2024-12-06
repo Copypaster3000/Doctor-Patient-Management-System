@@ -405,7 +405,7 @@ class provider_reports(parent):
             if not fees_owed:
                 etf_report.write(f"No doctors provided any billable services in the last week, {current_date}.\n")
 
-        print("\n")
+        print("\n --- Report created. ---\n")
         if not super().display_file_contents(file_name): #prints generated etf report file
             print("Error: ETF report file not found.\n")
 
