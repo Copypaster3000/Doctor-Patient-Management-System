@@ -1,0 +1,20 @@
+First and last name: Ruby Perez
+ID number: 123456020
+Address: 
+20 Elm Street
+Portland
+OR
+97201
+
+Date and time service recorded: 12-3-2024 08:15:30
+Date service was provided: 12-03-2024
+Provider number: 987654020
+Member number: 123456020
+Service code: 654020
+Fee: 200.00
+Comments: Routine check-up completed successfully.
+
+
+ 
+Total number of consultations: 1
+Total fee for all consultations: 200.0
