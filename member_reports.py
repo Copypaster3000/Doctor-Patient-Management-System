@@ -19,7 +19,7 @@ class member_reports(parent):
     """
     def generate_member_report(self):
         #Step 1: Prompt for member ID
-        print()
+        print("\nPlease enter a member profile ID number.")
         member_id = self.get_9_digits()  #Ensures the user enters a valid 9-digit member ID
 
         #Step 2: Validate member profile

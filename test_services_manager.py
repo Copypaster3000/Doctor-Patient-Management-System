@@ -3,6 +3,7 @@
 # Doctor Patient Management System 
 # This file contains unit tests. Every function is tested for normal operation and abnormal/invalid inputs
 # pythons unittest.mock library is used to help with testing user input functionality
+# To run enter: python -m unittest test_services_manager.py
 
 import unittest 
 from unittest import mock # used to replace parts of the services manager system during testing (user input)
@@ -41,9 +42,9 @@ class test_services_manager(unittest.TestCase):
        # use unittest patch function to replace input that function will expect from user 
         with unittest.mock.patch('builtins.input', side_effect=[  
             # sequence of values to be returned by the input() calls 
-            "Mental Health Counseling",  # service name
+            "Physical Health Counseling",  # service name
             "1",                         # confirmation
-            "654006",                    # service code
+            "654666",                    # service code
             "1",                         # confirmation
             "100.00",                    # service fee
             "1"                          # confirmation 
@@ -55,7 +56,7 @@ class test_services_manager(unittest.TestCase):
         with open(self.test_file, 'r') as file:
             contents = file.read()
             # service name, code and fee should all match
-            self.assertIn("Mental Health Counseling,654006,100.00", contents)
+            self.assertIn("Physical Health Counseling,654666,100.00", contents)
             
     # test 2: adding an invalid service as its name already exists 
     def test_add_invalid_service_name(self):
@@ -65,7 +66,7 @@ class test_services_manager(unittest.TestCase):
             "1",                          # confirmation
             "ChoAn Group Session",        # valid service name
             "1",                          # confirmation
-            "654007",                     # service code
+            "654777",                     # service code
             "1",                          # confirmation
             "40.00",                      # service fee
             "1"                           # confirmation 
@@ -76,7 +77,7 @@ class test_services_manager(unittest.TestCase):
         # assert: check if the service was succesfully added
         with open(self.test_file, 'r') as file:
             contents = file.read()
-            self.assertIn("ChoAn Group Session,654007,40.00", contents)
+            self.assertIn("ChoAn Group Session,654777,40.00", contents)
             
     # test 3: adding an invalid service as its code already exists 
     def test_add_invalid_service_code(self):
@@ -86,7 +87,7 @@ class test_services_manager(unittest.TestCase):
             "1",                               # confirmation 
             "654001",                          # invalid service code
             "1",                               # confirmation
-            "654008",                          # valid service code
+            "654111",                          # valid service code
             "1",                               # confirmation
             "50.00",                           # service fee
             "1"                                # confirmation 
@@ -96,7 +97,7 @@ class test_services_manager(unittest.TestCase):
         # assert: check if the service was successfully added
         with open(self.test_file, 'r') as file:
             contents = file.read()
-            self.assertIn("Personalized Fitness Training,654008,50.00", contents)
+            self.assertIn("Personalized Fitness Training,654111,50.00", contents)
 
 
     # test 4: removing a valid service from the service directory

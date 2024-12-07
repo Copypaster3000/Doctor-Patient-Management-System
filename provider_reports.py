@@ -447,9 +447,9 @@ class provider_reports(parent):
                     doctor_id_num = super().get_line_of_file(doctor_file, 1)
 
                     #write the info for each doctor that has fees into the etf report
-                    etf_report.write(f"{doctor_name}\n")
-                    etf_report.write(f"{doctor_id_num}\n")
-                    etf_report.write(f"{doctors_fees}\n")
+                    etf_report.write(f"Doctor: {doctor_name}\n")
+                    etf_report.write(f"ID number: {doctor_id_num}\n")
+                    etf_report.write(f"Fees earned: ${doctors_fees}\n")
                     etf_report.write(" \n")
 
             if not fees_owed:
