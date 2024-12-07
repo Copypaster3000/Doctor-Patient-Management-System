@@ -3,8 +3,7 @@
 # Doctor Patient Management System 
 # This file contains unit tests. Every function is tested for normal operation and abnormal/invalid inputs
 # pythons unittest.mock library is used to help with testing user input functionality
-# To run enter: pytest test_services_manager.py
-
+# To run enter: python -m unittest test_services_manager.py
 
 import unittest 
 from unittest import mock # used to replace parts of the services manager system during testing (user input)

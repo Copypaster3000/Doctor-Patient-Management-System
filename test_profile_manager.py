@@ -2,7 +2,7 @@
 #CS 314
 #Doctor Patient Management System
 #This file test profile manager class
-#Enter 'python3 -m unittest test_profile_manager' to run
+#Enter 'python -m unittest test_profile_manager' to run
 
 import os
 import unittest
