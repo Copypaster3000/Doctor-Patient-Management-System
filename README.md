@@ -1,6 +1,65 @@
 # Doctor Patient Management System
 
+## Overview
+The Doctor Patient Management System is a Python-based program designed to manage profiles, log services, and generate reports for healthcare providers and their patients. It provides functionality for both **Manager Mode** and **Provider Mode**, allowing streamlined operations for managing services, profiles, and billing reports.
 
+---
+
+## Features
+
+### Main Menu
+1. **Manager Mode**: Access functions for managing profiles, services, and generating reports.  
+2. **Provider Mode**: Log services provided to members and view available services.  
+3. **Exit Program**: Exit the system.
+
+---
+
+## Prerequisites
+
+1. **Python 3.8+**: Ensure you have Python installed. [Download Python](https://www.python.org/downloads/)
+2. **Dependencies**: No additional libraries are required as it uses core Python modules.
+
+---
+
+## How to Download and Run
+
+### **Step 1: Download the Project**
+Clone the repository or download the ZIP file:
+```bash
+git clone https://github.com/username/doctor-patient-management.git
+cd doctor-patient-management
+```
+
+### **Step 2: Set Up the Virtual Environment**
+Create and activate a Python virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+```
+
+### **Step 3: Run the Program**
+Run the main script:
+```bash
+python main.py
+```
+
+---
+
+## Class Overview
+
+### **Parent Class**
+- `parent`: Contains reusable utility functions for file management, input validation, and formatting.
+
+### **Child Classes**
+1. **`menus_n_modes`**: Manages menu displays and user interactions.  
+2. **`profile_manager`**: Handles creating, deleting, and editing doctor and member profiles.  
+3. **`member_reports`**: Generates weekly service reports for members.  
+4. **`provider_reports`**: Generates reports for providers, including weekly summaries and payment reports.  
+5. **`provider_services_logger`**: Allows providers to log services for members.  
+6. **`services_manager`**: Manages the services directory.
+
+-- 
 
 ## High-Level Menu Options
 
@@ -30,89 +89,24 @@
 2) View services directory  
 3) Exit provider mode  
 
-
-## Class Descriptions
-
-### `parent`
-- The parent class of the hierarchy.  
-- Contains all reusable functions for handling files and any other small functions reused across classes.  
-
-### `provider_reports(parent)`
-- Child of `parent`.  
-- Handles generating provider-related reports.  
-- Responsible for:  
-  - Manager Mode:  
-    - Generate a doctor's weekly service report  
-    - Generate a Provider Summary report for all doctors  
-    - Generate a weekly ETF report  
-
-### `member_reports(parent)`
-- Child of `parent`.  
-- Handles member-related reports.  
-- Responsible for:  
-  - Manager Mode:  
-    - Generate a member's weekly service report  
-
-### `profile_manager(parent)`
-- Child of `parent`.  
-- Manages adding/removing and editing doctor and member profiles.
-- Responsible for:  
-  - Manager Mode:  
-    - Create a new doctor profile  
-    - Create a new member profile  
-    - Edit a doctor profile  
-    - Edit a member profile  
-    - Remove an existing doctor profile  
-    - Remove an existing member profile  
-    - Change a member's status  
-
-### `services_manager(parent)`
-- Child of `parent`.  
-- Manages the services directory.  
-- Responsible for:  
-  - Manager Mode:  
-    - Add a service to the services directory  
-    - Remove a service from the services directory  
-  - Provider Mode:  
-    - View services directory  
-
-### `provider_services_logger(parent)`
-- Child of `parent`.  
-- Handles providers logging a member service.  
-- Responsible for:  
-  - Provider Mode:  
-    - Log a member service  
-
-### `menus_n_modes(parent)`
-- Child of `parent`.  
-- Manages high-level menu interactions and user choices.  
-- Responsible for displaying menus and calling the appropriate functions based on user input.  
-
+---
 
 ## File Structure
 The system operates with specific file naming conventions:
 - `123456789_doctor_name_profile.txt`: Contains the doctor's contact information and a log of services provided.
 - `123456789_member_name_profile.txt`: Contains the member's contact information and log of services received.
 - `123456789_doctor_name_provider_service_report_MM_DD_YYYY.txt`: An individual doctor's weekly billing report. List the provider's profile information and list services provided in chronological order of the date the service was provided; at the bottom of the file, a total fee of all services will be provided and the total number of services provided.
-- `123456789_member_name_report_MM_DD_YYYY.txt`: An individual member's weekly billing report. (Needs better description)
+- `123456789_member_name_report_MM_DD_YYYY.txt`: A report of an individual member's services received and fees accrued in the last week.
 - `provider_summary_report_MM_DD_YYYY` lists every provider to be paid that week, the number of consultations each provider had, and the fee dues to each provider. At the bottom of the file, the total fee due to all providers and the total number of consultations of all providers will be present.
 - `etf_report_MM_DD_YYYY.txt`: Summary of weekly payments due to all doctors.
 - `services.txt`: Lists all available services with codes and fees.
 
+---
 
 ## Contributors
 
-This system was designed by the following developers, with their main responsibility listed below their name. 
-
-- Drake Wheeler
-  - menus_n_modes
-  - profile_manager
-- Jordan Oliver
-  - member_reports
-- Natalya Langford
-  - services_manager
-- Nikki Rudnick
-  - provider_reports
-- Catherine Nemec
-  - provider_services_logger
-
+- **Drake Wheeler**: High-level menus and profile management.  
+- **Jordan Oliver**: Member reporting functionality.  
+- **Natalya Langford**: Service directory management.  
+- **Nikki Rudnick**: Provider reporting features.  
+- **Catherine Nemec**: Service logging for providers. 
