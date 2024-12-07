@@ -49,6 +49,11 @@ python main.py
 ## Testing Files
 The project includes testing files to verify the functionality of various components. Each testing file name starts with 'test' and contains instructions in its comments at the beginning of the file, specifying the command to run it.
 
+Example:
+```bash
+python -m unittest test_file.py
+```
+
 ---
 
 ## Class Overview
