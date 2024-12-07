@@ -1,0 +1,33 @@
+Provider name: Jordan Michael
+ID number: 120945783
+Number of consultations: 3.0
+Weekly Fee: 160.0
+ 
+Provider name: Ruby Perez
+ID number: 123456020
+Number of consultations: 1.0
+Weekly Fee: 200.0
+ 
+Provider name: Erin Wheeler
+ID number: 342964709
+Number of consultations: 3.0
+Weekly Fee: 185.0
+ 
+Provider name: John Doe
+ID number: 345678924
+Number of consultations: 2.0
+Weekly Fee: 110.0
+ 
+Provider name: Aburey Gram
+ID number: 666666666
+Number of consultations: 1.0
+Weekly Fee: 50.0
+ 
+Provider name: Doctor Drake
+ID number: 875489247
+Number of consultations: 2.0
+Weekly Fee: 95.0
+ 
+ 
+Total of all consultations: 12.0
+Sum of all weekly fees: 800.0

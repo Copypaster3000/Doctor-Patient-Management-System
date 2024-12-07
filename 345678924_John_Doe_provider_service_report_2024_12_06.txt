@@ -1,0 +1,26 @@
+First and last name: John Doe
+ID number: 345678924
+Address: 
+867 Pool Street
+Pleasant Park
+WA
+83245
+
+Date and time service recorded: 12-06-2024 14:14:20
+Date service was provided: 12-6-2024
+Provider number: 345678924
+Member number: 834567382
+Service code: 654011
+Fee: 70.00
+
+
+Date and time service recorded: 12-06-2024 14:13:16
+Date service was provided: 12-6-2024
+Provider number: 345678924
+Member number: 834567382
+Service code: 654003
+Fee: 40.00
+
+ 
+Total number of consultations: 2
+Total fee for all consultations: 110.0
