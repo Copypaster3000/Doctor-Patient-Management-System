@@ -94,7 +94,7 @@ class menus_n_modes(parent):
             if (choice == 1): self.service_logger.log_member_services()
             if (choice == 2): self.services.view_service_directory()
 
-        print("Exited Provider Mode\n") #notifies user they have exited provider mode
+        print("\nExited Provider Mode") #notifies user they have exited provider mode
 
             
 
