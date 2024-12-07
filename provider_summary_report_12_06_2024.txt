@@ -8,6 +8,21 @@ ID number: 123456020
 Number of consultations: 1.0
 Weekly Fee: 200.0
  
+Provider name: Anthony Diaz
+ID number: 234589721
+Number of consultations: 1.0
+Weekly Fee: 65.0
+ 
+Provider name: Benjamin Chen
+ID number: 278945334
+Number of consultations: 2.0
+Weekly Fee: 100.0
+ 
+Provider name: Bryan Fury
+ID number: 342220111
+Number of consultations: 3.0
+Weekly Fee: 145.0
+ 
 Provider name: Erin Wheeler
 ID number: 342964709
 Number of consultations: 3.0
@@ -18,10 +33,40 @@ ID number: 345678924
 Number of consultations: 2.0
 Weekly Fee: 110.0
  
+Provider name: Stephanie Chang
+ID number: 382908654
+Number of consultations: 1.0
+Weekly Fee: 65.0
+ 
+Provider name: Nina Williams
+ID number: 456009111
+Number of consultations: 3.0
+Weekly Fee: 180.0
+ 
+Provider name: Heihachi Mishima
+ID number: 500389144
+Number of consultations: 1.0
+Weekly Fee: 40.0
+ 
 Provider name: Aburey Gram
 ID number: 666666666
 Number of consultations: 1.0
 Weekly Fee: 50.0
+ 
+Provider name: Sophia Hill
+ID number: 783498762
+Number of consultations: 2.0
+Weekly Fee: 110.0
+ 
+Provider name: Kendrick Lamar
+ID number: 804710009
+Number of consultations: 2.0
+Weekly Fee: 85.0
+ 
+Provider name: Carmen Elaine
+ID number: 839468821
+Number of consultations: 1.0
+Weekly Fee: 60.0
  
 Provider name: Doctor Drake
 ID number: 875489247
@@ -29,5 +74,5 @@ Number of consultations: 2.0
 Weekly Fee: 95.0
  
  
-Total of all consultations: 12.0
-Sum of all weekly fees: 800.0
+Total of all consultations: 28.0
+Sum of all weekly fees: 1650.0

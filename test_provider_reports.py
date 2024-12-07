@@ -31,8 +31,22 @@ class test_provider_reports(unittest.TestCase):
 
     #cleans up after each test function is ran
     def tearDown(self):
+        current_date = datetime.now().strftime("%m_%d_%Y")
+        file_to_delete_1 = f"provider_summary_report_{current_date}.txt"
+        file_to_delete_2 = f"123456020_Ruby_Perez_provider_service_report_{current_date}.txt"
+        file_to_delete_3 = f"345678924_John_Doe_provider_service_report_{current_date}.txt"
+        try:
+            # Remove the file
+            os.remove(file_to_delete_1)
+            os.remove(file_to_delete_2)
+            os.remove(file_to_delete_3)
+        except FileNotFoundError:
+            print(f"Error: File not found.")
+        except PermissionError:
+            print(f"Error: Permission denied while trying to delete.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
         pass
-        #clean up the created files after each test
     
     def test_count_weekly_consultations(self):#counts the number of consultations in the past week
         for file in self.pr.doctor_files:
