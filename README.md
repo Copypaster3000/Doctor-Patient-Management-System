@@ -102,7 +102,7 @@ python -m unittest test_file.py
 ---
 
 ## File Structure
-The system uses the local file directory as its data base with the following specific file naming conventions:
+The system uses its local file directory as its data base with the following specific file naming conventions:
 - `123456789_doctor_name_profile.txt`: Contains the doctor's contact information and a log of services provided.
 - `123456789_member_name_profile.txt`: Contains the member's contact information and log of services received.
 - `123456789_doctor_name_provider_service_report_MM_DD_YYYY.txt`: An individual doctor's weekly billing report. List the provider's profile information and list services provided in chronological order of the date the service was provided; at the bottom of the file, a total fee of all services will be provided and the total number of services provided.
