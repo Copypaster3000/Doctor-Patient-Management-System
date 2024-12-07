@@ -119,4 +119,4 @@ The system uses its local file directory as its data base with the following spe
 - **Jordan Oliver**: Member reporting functionality.  
 - **Natalya Langford**: Service directory management.  
 - **Nikki Rudnick**: Provider reporting features.  
-- **Catherine Nemec**: Service logging for providers. 
+- **Catherine Nemec**: Service logging for providers and patients. 
