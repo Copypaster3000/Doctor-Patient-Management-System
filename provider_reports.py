@@ -55,7 +55,7 @@ class provider_reports(parent):
                         #service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y")
                         service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y %H:%M:%S")
                     except ValueError: #handle errors from try block
-                        print(f"{file_name}: Invalid date format on line {index + 1} found while generating ETF report. Skipping that service block.")
+                        print(f"{file_name}: Invalid date format on line {index + 1} found while counting services. Skipping that service block.")
                         index += 8
                         continue #skip to next if improper date format
 
@@ -122,6 +122,7 @@ class provider_reports(parent):
                     provider_summary_report.write("No doctors provided any billable services in the last week.\n")
             with open(file_name, 'a') as provider_summary_report:
             #apend totals with labels to the end of the file:
+                provider_summary_report.write(f" \n")
                 provider_summary_report.write(f"Total of all consultations: {total_weekly_consultations}\n")
                 provider_summary_report.write(f"Sum of all weekly fees: {weekly_fee_sum}\n")
 
@@ -248,6 +249,7 @@ class provider_reports(parent):
         try:
             with open(new_file_name, 'a') as file:
 
+                file.write(" \n")
                 file.write(service_count + '\n')
                 file.write(weekly_fee + '\n')
 
