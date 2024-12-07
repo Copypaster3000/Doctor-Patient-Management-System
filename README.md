@@ -59,7 +59,7 @@ python main.py
 5. **`provider_services_logger`**: Allows providers to log services for members.  
 6. **`services_manager`**: Manages the services directory.
 
--- 
+---
 
 ## High-Level Menu Options
 
