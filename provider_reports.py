@@ -49,7 +49,7 @@ class provider_reports(parent):
                 #start processing from line 8
                 index = 7 #line 8 is the 8th index (0-based)
 
-                while index + 7 < len(lines): #while there are still services to check 
+                while index + 5 < len(lines): #while there are still services to check 
                     #get the date
                     try:
                         #service_date = datetime.strptime(lines[index].strip(), "%m-%d-%Y")
@@ -215,9 +215,9 @@ class provider_reports(parent):
         id_num = super().get_9_digits()
         while(super().file_exists(id_num, "doctor", "profile") == None):
             print("There is no provider in the system with that ID number.")
-            print("what would you like to do?")
-            print("1) re-enter ID number")
-            print("2) return to menu")
+            print("What would you like to do?")
+            print("1) Re-enter ID number")
+            print("2) Return to menu")
             choice = super().get_menu_choice(2)
             if(choice == 1):
                 print("Please enter the ID number of the provider you wish to generate a service report for")
