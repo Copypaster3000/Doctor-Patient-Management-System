@@ -26,8 +26,8 @@ The Doctor Patient Management System is a Python-based program designed to manag
 ### **Step 1: Download the Project**
 Clone the repository or download the ZIP file:
 ```bash
-git clone https://github.com/username/doctor-patient-management.git
-cd doctor-patient-management
+git clone https://github.com/Copypaster3000/Doctor-Patient-Management-System.git
+cd Doctor-Patient-Management-System
 ```
 
 ### **Step 2: Set Up the Virtual Environment**
