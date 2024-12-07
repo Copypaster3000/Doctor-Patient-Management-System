@@ -2,6 +2,9 @@
 #Doctor Patient Management System
 #This file contains the unit and integration tests for the provider_reports class.
 
+#run with:
+#python -m unittest test_provider_reports.py
+
 #the tests are defined in this file, in the following order:
 #def test_count_weekly_consultations(self, doctor_file):
 #def test_generate_provider_summary_report(): #high level menu option
@@ -28,25 +31,6 @@ class test_provider_reports(unittest.TestCase):
     def setUp(self):
         #create an instance of Profile_reports for testing
         self.pr = provider_reports()
-
-    #cleans up after each test function is ran
-    def tearDown(self):
-        current_date = datetime.now().strftime("%m_%d_%Y")
-        file_to_delete_1 = f"provider_summary_report_{current_date}.txt"
-        file_to_delete_2 = f"123456020_Ruby_Perez_provider_service_report_{current_date}.txt"
-        file_to_delete_3 = f"345678924_John_Doe_provider_service_report_{current_date}.txt"
-        try:
-            # Remove the file
-            os.remove(file_to_delete_1)
-            os.remove(file_to_delete_2)
-            os.remove(file_to_delete_3)
-        except FileNotFoundError:
-            print(f"Error: File not found.")
-        except PermissionError:
-            print(f"Error: Permission denied while trying to delete.")
-        except Exception as e:
-            print(f"An unexpected error occurred: {e}")
-        pass
     
     def test_count_weekly_consultations(self):#counts the number of consultations in the past week
         for file in self.pr.doctor_files:
@@ -72,6 +56,9 @@ class test_provider_reports(unittest.TestCase):
         with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
             self.pr.generate_provider_summary_report()
             self.assertIn('Sum of all weekly fees:', mock_stdout.getvalue())
+        
+        current_date = datetime.now().strftime("%m_%d_%Y")
+        os.remove(f"provider_summary_report_{current_date}.txt")
 
     def test_get_name_by_id_num(self):#returns the name of a doctor based on their id number
         for file in self.pr.doctor_files:
@@ -110,6 +97,9 @@ class test_provider_reports(unittest.TestCase):
         
         self.assertNotEqual(len(provider_report_output.split('\n')), len(profile_output.split('\n')))
 
+        current_date = datetime.now().strftime("%m_%d_%Y")
+        os.remove(f"123456020_Ruby_Perez_provider_service_report_{current_date}.txt")
+
     def test_generate_provider_service_report(self):
         sys.stdin = MagicMock()
         # Simulate multiple inputs: first the ID, then the menu choice to re-enter the ID
@@ -123,6 +113,9 @@ class test_provider_reports(unittest.TestCase):
         with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
             self.pr.generate_provider_service_report()
             self.assertIn('First and last name:', mock_stdout.getvalue())     
+
+        current_date = datetime.now().strftime("%m_%d_%Y")
+        os.remove(f"345678924_John_Doe_provider_service_report_{current_date}.txt")
 
     def test_print_report(self):
         with patch('sys.stdout', new_callable=StringIO) as mock_stdout:

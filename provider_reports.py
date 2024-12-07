@@ -228,7 +228,7 @@ class provider_reports(parent):
         #get current date from system for the report file name
         current_date = date.today()
         #format date
-        formatted_date = current_date.strftime("%Y_%m_%d")  # Example: "2024-12-02"
+        formatted_date = current_date.strftime("%m_%d_%Y")
         name = self.get_name_by_id_num(id_num)#returns the name of a doctor based on their id number
 
         #format the file name of the newly generated report
